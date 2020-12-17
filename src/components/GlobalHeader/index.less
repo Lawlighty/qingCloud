@@ -1,0 +1,131 @@
+@import '~antd/es/style/themes/default.less';
+
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+.ant-badge-status-warning {
+  position: absolute !important;
+  top: 18px !important;
+  right: 10px !important;
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #faad14;
+}
+.card {
+  font-size: 12px;
+  .now_money {
+    margin: 2px 0 4px 0;
+    color: #020508;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .coupons {
+    margin: 2px 0 4px 0;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  .support {
+    color: #00aa72;
+    font-size: 14px;
+  }
+}
+.ant-badge-count,
+.ant-badge-dot,
+.ant-badge .ant-scroll-number-custom-component {
+  position: absolute !important;
+  width: 10px !important;
+  top: 17px !important;
+  right: 10px !important;
+  transform: translate(50%, -50%) !important;
+  transform-origin: 100% 0% !important;
+  height: 10px !important;
+}
+.right {
+  display: flex;
+  float: right;
+  height: 48px;
+  margin-left: auto;
+  overflow: hidden;
+  .ant-badge-count,
+  .ant-badge-dot,
+  .ant-badge .ant-scroll-number-custom-component {
+    position: absolute;
+    width: 10px;
+    top: 17px;
+    right: 10px;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0%;
+    height: 10px;
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    > span {
+      vertical-align: middle;
+    }
+    &:hover {
+      background: @pro-header-hover-bg;
+    }
+    &:global(.opened) {
+      background: @pro-header-hover-bg;
+    }
+  }
+  .search {
+    padding: 0 12px;
+    &:hover {
+      background: transparent;
+    }
+  }
+  .account {
+    .avatar {
+      margin: ~'calc((@{layout-header-height} - 24px) / 2)' 0;
+      margin-right: 8px;
+      color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
+.dark {
+  .action {
+    color: rgba(255, 255, 255, 0.85);
+    > span {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    &:hover,
+    &:global(.opened) {
+      background: @primary-color;
+    }
+  }
+}
+
+:global(.ant-pro-global-header) {
+  .dark {
+    .action {
+      color: @text-color;
+      > span {
+        color: @text-color;
+      }
+      &:hover {
+        color: rgba(255, 255, 255, 0.85);
+        > span {
+          color: rgba(255, 255, 255, 0.85);
+        }
+      }
+    }
+  }
+}
