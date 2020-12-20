@@ -131,7 +131,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     <ProLayout
       // logo={logo}
       logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
-      formatMessage={formatMessage}
+      //国际化
+      // formatMessage={formatMessage}
       {...props}
       {...settings}
       onCollapse={handleMenuCollapse}

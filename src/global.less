@@ -29,6 +29,63 @@ ol {
   list-style: none;
 }
 
+.bg_div_white {
+  background: #fff;
+  min-width: 800px;
+  // padding: 20px;
+}
+//字号
+.font_12 {
+  font-size: 12px;
+}
+//字体
+.font_w_600 {
+  font-weight: 600;
+}
+.p_20 {
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex_1 {
+  flex: 1;
+}
+
+//抬头菜单项
+.ant-pro-global-header div:first-child {
+  flex: none !important;
+}
+.ant-pro-global-header :nth-child(2) {
+  flex: 1 !important;
+}
+.ant-pro-fixed-header .ant-pro-global-header .right {
+  flex: 1 !important;
+}
+//通知页面标签页样式
+.notification_tab {
+  .ant-tabs-nav {
+    background: #e4ebf1;
+    .ant-tabs-tab {
+      border: none;
+      background: #d5e0e9 !important;
+      &:hover {
+        background: #c6d5e1 !important;
+      }
+    }
+    .ant-tabs-tab-active {
+      background: #fff !important;
+    }
+  }
+  .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+  .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    // background: #c6d5e1 !important;
+    background: #d5e0e9 !important;
+  }
+}
+
 @media (max-width: @screen-xs) {
   .ant-table {
     width: 100%;

@@ -1,4 +1,4 @@
-import { Tooltip, Tag, Menu, Dropdown, Badge } from 'antd';
+import { Tooltip, Tag, Menu, Dropdown, Badge, Divider } from 'antd';
 import { Settings as ProSettings } from '@ant-design/pro-layout';
 import {
   QuestionCircleFilled,
@@ -16,14 +16,15 @@ import {
   ReconciliationFilled,
   RedEnvelopeFilled,
   TagsFilled,
+  BellFilled,
 } from '@ant-design/icons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, ConnectProps, SelectLang } from 'umi';
 import { ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
-
+import { Link } from 'umi';
 export interface GlobalHeaderRightProps extends Partial<ConnectProps>, Partial<ProSettings> {
   theme?: ProSettings['navTheme'] | 'realDark';
 }
@@ -34,14 +35,97 @@ const ENVTagColor = {
   pre: '#87d068',
 };
 
+interface msgCountType {
+  info: string;
+  datetime: string;
+}
+
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
   const { theme, layout } = props;
   let className = styles.right;
+  // 通知--未读数量
+  const [msgCount, setMsgCount] = useState<number>(1);
+  // 通知-- 通知信息
+  const [msgCountInfo, setMsgCountInfo] = useState<msgCountType[]>([
+    {
+      info: '13616859570，您刚刚获得代金券一张 [cpi-1xv2v3cu]',
+      datetime: '2020-08-07',
+    },
+    {
+      info: '13616859570，您刚刚获得代金券一张 [cpi-1xv2v3cu]',
+      datetime: '2020-08-07',
+    },
+    {
+      info: '13616859570，您刚刚获得代金券一张 [cpi-1xv2v3cu]',
+      datetime: '2020-08-07',
+    },
+    {
+      info: '13616859570，您刚刚获得代金券一张 [cpi-1xv2v3cu]',
+      datetime: '2020-08-07',
+    },
+    {
+      info: '13616859570，您刚刚获得代金券一张 [cpi-1xv2v3cu]',
+      datetime: '2020-08-07',
+    },
+  ]);
+  // const [msgCountInfo, setMsgCountInfo] = useState([]);
+  // 卡券
+  const [card_tip, setCard_tip] = useState<string>('券');
 
   if (theme === 'dark' && layout === 'top') {
     className = `${styles.right}  ${styles.dark}`;
   }
 
+  // 资源项目
+  const sorce_menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <a href="http://www.alipay.com/">全部资源</a>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <a href="http://www.taobao.com/">查看全部</a>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="3">新建新的项目..</Menu.Item>
+    </Menu>
+  );
+  // 通知
+  const msg = (
+    <Menu className={styles.msg}>
+      <div className={styles.msg_head}>
+        <div className={`${styles.head_boyd}`}>
+          共有{' '}
+          <span className={`${styles.bold}`}>{msgCountInfo.length ? msgCountInfo.length : 0}</span>{' '}
+          条未读通知
+        </div>
+        <Link to="/notifications">查看全部</Link>
+      </div>
+      <div
+        style={{
+          margin: '5px 0',
+          width: '100%',
+          height: '1px',
+          background: 'rgba(0, 0, 0, 0.1)',
+        }}
+      />
+      {/* <Divider /> */}
+      <div className={styles.info_item}>
+        {msgCountInfo.length > 0 ? (
+          msgCountInfo.map((item, index) => (
+            <div className={styles.info_items} key={index + item.datetime}>
+              <div>{item.info}</div>
+              <div className={styles.time}>{item.datetime}</div>
+            </div>
+          ))
+        ) : (
+          <div className={styles.nomsg}>
+            <BellFilled className={styles.nobell} />
+            <div>没有未读通知</div>
+          </div>
+        )}
+      </div>
+    </Menu>
+  );
   // 工单
   const menu = (
     <Menu>
@@ -116,67 +200,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
     </Menu>
   );
 
-  const cards = (
-    <div>
-      <div>账户余额</div>
-      {/* <Divider /> */}
-      <Menu className={styles.card}>
-        <Menu.Item className={styles.card_item}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://docs.qingcloud.com/product/quick_start/"
-          >
-            <RocketOutlined /> 账单总览
-          </a>
-        </Menu.Item>
-        <Menu.Item className={styles.card_item}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://docs.qingcloud.com/product/faq/"
-          >
-            <AlertOutlined />
-            <span>消费统计</span>
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.qingcloud.com/product/">
-            <DatabaseFilled />
-            <span>消费预估</span>
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="https://docs.qingcloud.com/qingstor/">
-            <DatabaseFilled />
-            <span>续约管理</span>
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://docs.qingcloud.com/appcenter/docs/README.html"
-          >
-            <DatabaseFilled />
-            <span>钱包</span>
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="https://beian.qingcloud.com/icp">
-            <SecurityScanFilled />
-            <span>优惠券</span>
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://status.qingcloud.com/">
-            <BugFilled />
-            <span>发票</span>
-          </a>
-        </Menu.Item>
-      </Menu>
-    </div>
-  );
+  // 卡券
   const cards_1 = (
     <Menu style={{ padding: 10 }} className={styles.card}>
       <div>
@@ -256,7 +280,16 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
   );
   return (
     <div className={className}>
-      <HeaderSearch
+      {/* <div className="rightContent"> */}
+      <div>
+        <Dropdown overlay={sorce_menu} trigger={['click']}>
+          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+            Click me
+          </a>
+        </Dropdown>
+      </div>
+      <div className="flex_1" />
+      {/* <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder="站内搜索"
         defaultValue="umi ui"
@@ -278,21 +311,34 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
         // onSearch={value => {
         //   //console.log('input', value);
         // }}
-      />
+      /> */}
+      <Dropdown overlay={msg} placement="bottomCenter" className={styles.bell}>
+        {msgCountInfo.length ? (
+          <Badge dot>
+            <BellFilled className={styles.action} />
+          </Badge>
+        ) : (
+          <BellFilled className={styles.action} />
+        )}
+      </Dropdown>
       <Dropdown overlay={menu} placement="bottomCenter">
         <TagsOutlined className={styles.action} />
       </Dropdown>
-
       <Dropdown overlay={cards_1} placement="bottomCenter">
-        <Badge status="warning" text="券券">
+        {card_tip ? (
+          <Badge count={<div className={styles.card_tip}>{card_tip}</div>}>
+            <CreditCardOutlined className={styles.action} />
+          </Badge>
+        ) : (
           <CreditCardOutlined className={styles.action} />
-        </Badge>
+        )}
+        {/* <Badge count={<div className={styles.card_tip}>{card_tip}</div>}>
+          <CreditCardOutlined className={styles.action} />
+        </Badge> */}
       </Dropdown>
-
       <Dropdown overlay={q_menu} placement="bottomCenter">
         <QuestionCircleFilled className={styles.action} />
       </Dropdown>
-
       {/* <Tooltip title="使用文档">
         <a
           style={{
@@ -312,7 +358,8 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
           <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
         </span>
       )}
-      <SelectLang className={styles.action} />
+      {/* //国际化 */}
+      {/* <SelectLang className={styles.action} /> */}
     </div>
   );
 };

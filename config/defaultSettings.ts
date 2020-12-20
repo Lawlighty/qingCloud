@@ -17,6 +17,10 @@ const proSettings: DefaultSettings = {
   title: '',
   pwa: false,
   iconfontUrl: '',
+  //国际化
+  menu: {
+    locale: false,
+  },
 };
 
 export type { DefaultSettings };

@@ -29,20 +29,23 @@
               },
               {
                 path: '/welcome',
-                name: 'welcome',
+                // name: 'welcome',
+                name: '欢迎',
                 icon: 'smile',
                 component: './Welcome',
               },
               {
                 path: '/admin',
-                name: 'admin',
+                // name: 'admin',
+                name: '管理页面',
                 icon: 'crown',
                 component: './Admin',
                 authority: ['admin'],
                 routes: [
                   {
                     path: '/admin/sub-page',
-                    name: 'sub-page',
+                    // name: 'sub-page',
+                    name: '二级管理',
                     icon: 'smile',
                     component: './Welcome',
                     authority: ['admin'],
@@ -50,10 +53,18 @@
                 ],
               },
               {
-                name: 'list.table-list',
+                // name: 'list.table-list',
+                name: '查询表格',
                 icon: 'table',
                 path: '/list',
                 component: './ListTableList',
+              },
+              //通知
+              {
+                path: '/notifications',
+                name: '通知',
+                hideInMenu: true,
+                component: './notifications',
               },
               {
                 component: './404',
