@@ -38,6 +38,9 @@ ol {
 .font_12 {
   font-size: 12px;
 }
+.font_14 {
+  font-size: 14px !important  ;
+}
 //字体
 .font_w_600 {
   font-weight: 600;
@@ -52,6 +55,10 @@ ol {
 }
 .flex_1 {
   flex: 1;
+}
+//margin
+.margin_lr_10 {
+  margin: 0 10px;
 }
 
 //抬头菜单项
@@ -85,7 +92,51 @@ ol {
     background: #d5e0e9 !important;
   }
 }
+//单行文本省略
+.ellipse_row {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+//左上角资源选项
+.g_more_div {
+  float: left;
+  width: 164px;
+  height: 28px;
+  line-height: 28px;
+  position: relative;
+  border: 1px solid #d5dee7;
+  margin: 10px 0 10px 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  .span {
+    margin: 0 10px;
+  }
+  &:hover {
+    background: #f5f7fa;
+  }
+  &:active {
+    background: #e4ebf1;
+  }
+}
+.g_more_div.active {
+  background: #e4ebf1;
+}
 
+.project_menu {
+  font-size: 12px;
+  width: 164px;
+}
+//meun 样式
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  display: flex;
+  align-items: center;
+}
 @media (max-width: @screen-xs) {
   .ant-table {
     width: 100%;

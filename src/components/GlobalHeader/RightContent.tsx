@@ -1,4 +1,4 @@
-import { Tooltip, Tag, Menu, Dropdown, Badge, Divider } from 'antd';
+import { Tooltip, Tag, Menu, Dropdown, Badge } from 'antd';
 import { Settings as ProSettings } from '@ant-design/pro-layout';
 import {
   QuestionCircleFilled,
@@ -17,6 +17,12 @@ import {
   RedEnvelopeFilled,
   TagsFilled,
   BellFilled,
+  RadarChartOutlined,
+  CaretUpFilled,
+  CaretDownFilled,
+  ScheduleFilled,
+  PlusOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectProps, SelectLang } from 'umi';
@@ -43,6 +49,8 @@ interface msgCountType {
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
   const { theme, layout } = props;
   let className = styles.right;
+  // 项目选择
+  const [showMore, setShowMore] = useState(false);
   // 通知--未读数量
   const [msgCount, setMsgCount] = useState<number>(1);
   // 通知-- 通知信息
@@ -78,15 +86,50 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
 
   // 资源项目
   const sorce_menu = (
-    <Menu>
+    <Menu className="project_menu">
       <Menu.Item key="0">
-        <a href="http://www.alipay.com/">全部资源</a>
-      </Menu.Item>
-      <Menu.Item key="1">
-        <a href="http://www.taobao.com/">查看全部</a>
+        <a href="http://www.alipay.com/">
+          <RadarChartOutlined />
+          全部资源
+        </a>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="3">新建新的项目..</Menu.Item>
+      <Menu.Item key="1">
+        <Tooltip placement="top" title="我的项目">
+          <a
+            href="http://www.alipay.com/"
+            style={{ display: 'flex', alignItems: 'center', width: '164px' }}
+          >
+            <ScheduleFilled />
+            <div className="ellipse_row">我的项目</div>
+          </a>
+        </Tooltip>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Tooltip placement="top" title="我的项目2">
+          <a
+            href="http://www.alipay.com/"
+            style={{ display: 'flex', alignItems: 'center', width: '164px' }}
+          >
+            <ScheduleFilled />
+            <div className="ellipse_row">我的项目2</div>
+          </a>
+        </Tooltip>
+      </Menu.Item>
+
+      <Menu.Item key="3">
+        <a href="http://www.alipay.com/">
+          <UnorderedListOutlined />
+          查看全部...
+        </a>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="43">
+        <a href="http://www.alipay.com/">
+          <PlusOutlined className="font_14" />
+          创建新的项目
+        </a>
+      </Menu.Item>
     </Menu>
   );
   // 通知
@@ -278,14 +321,35 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
       </Menu.Item>
     </Menu>
   );
+
+  // 查看资源切换
+  const chosePorject = (e) => {
+    e.preventDefault();
+    setShowMore(!showMore);
+  };
+  const handleVisibleChange = (flag: Boolean) => {
+    setShowMore(flag);
+  };
   return (
     <div className={className}>
       {/* <div className="rightContent"> */}
       <div>
-        <Dropdown overlay={sorce_menu} trigger={['click']}>
-          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            Click me
-          </a>
+        <Dropdown overlay={sorce_menu} trigger={['click']} onVisibleChange={handleVisibleChange}>
+          <div
+            className={`g_more_div flex ${showMore ? 'active' : ''}`}
+            onClick={(e) => {
+              chosePorject(e);
+            }}
+          >
+            <RadarChartOutlined className="margin_lr_10" />
+            <div className="flex_1 font_12">全部资源</div>
+
+            {showMore ? (
+              <CaretUpFilled className="margin_lr_10 " />
+            ) : (
+              <CaretDownFilled className="margin_lr_10" />
+            )}
+          </div>
         </Dropdown>
       </div>
       <div className="flex_1" />
