@@ -127,7 +127,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
       <Menu.Item key="43">
         <a href="http://www.alipay.com/">
           <PlusOutlined className="font_14" />
-          创建新的项目
+          创建新的项目...
         </a>
       </Menu.Item>
     </Menu>

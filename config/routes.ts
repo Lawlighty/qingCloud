@@ -35,6 +35,13 @@
                 component: './Welcome',
               },
               {
+                path: '/overview',
+                // name: 'welcome',
+                name: '总览',
+                icon: 'dashboard',
+                component: './overview',
+              },
+              {
                 path: '/admin',
                 // name: 'admin',
                 name: '管理页面',

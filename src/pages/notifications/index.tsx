@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { connect, Dispatch, useIntl, FormattedMessage } from 'umi';
+import { PageContainer } from '@ant-design/pro-layout';
+import { connect, Dispatch } from 'umi';
 import styles from './index.less';
 import { Tabs, Button, notification } from 'antd';
 import { Link } from 'umi';
