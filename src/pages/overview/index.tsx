@@ -250,6 +250,47 @@ const Overview: React.FC<{}> = (props) => {
                 </div>
               </div>
             </div>
+
+            {/* 最新产品动态 */}
+            <div className={styles.overview_consumptions}>
+              <div className={styles.overview_consumptions_inner}>
+                <div className={styles.overview_card_title}>
+                  <div className="flex_1">最新产品动态</div>
+
+                  <a className={styles.btn_link} href="/finance/statistic/">
+                    查看全部
+                  </a>
+                </div>
+                {[1, 2, 3, 4].map((item) => (
+                  <div className={styles.item}>
+                    <h6 className={styles.text_ellipsis}>
+                      <a
+                        href="https://log.qingcloud.com/archives/6165"
+                        target="_blank"
+                        title="AppCenter支持新计费模式&amp;新增主机类型等新功能上线"
+                      >
+                        AppCenter支持新计费模式&amp;新增主机类型等新功能上线
+                      </a>
+                    </h6>
+                    <span className={styles.time}>20191030</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 广告 */}
+            <div className="margin_lr_5">
+              <a
+                href="https://www.qingcloud.com/promotion202010/#security"
+                target="_blank"
+                zh-cn=""
+              >
+                <img
+                  className="width_100_percent"
+                  src="https://s3.qingcloud.com/files/2020/08/banner-thumbnail-双十一-2.jpg"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>
