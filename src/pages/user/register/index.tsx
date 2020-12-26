@@ -571,7 +571,7 @@ const Register: React.FC<LoginProps> = (props) => {
             </Modal>
             {/* <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" /> */}
           </ProFormCheckbox>
-          {showAgree ? <div className={styles.agree_err}>请勾选同意协议内容</div> : null}
+          {/* {showAgree ? <div className={styles.agree_err}>请勾选同意协议内容</div> : null} */}
         </div>
       </ProForm>
       <Space className={styles.other}>

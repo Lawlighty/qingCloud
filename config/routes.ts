@@ -79,6 +79,13 @@
                 component: './notifications',
               },
               {
+                path: '/ticks',
+                // name: 'welcome',
+                name: '工单',
+                icon: 'dashboard',
+                component: './ticks',
+              },
+              {
                 component: './404',
               },
             ],

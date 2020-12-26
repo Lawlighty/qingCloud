@@ -173,9 +173,9 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        <Link to="/ticks">
           <TagsOutlined /> 我的工单
-        </a>
+        </Link>
       </Menu.Item>
       <Menu.Item>
         <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
