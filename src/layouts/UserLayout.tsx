@@ -1,11 +1,11 @@
 import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, SelectLang, useIntl, ConnectProps, connect, FormattedMessage } from 'umi';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
-
+import { Carousel } from 'antd';
 export interface UserLayoutProps extends Partial<ConnectProps> {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
@@ -25,6 +25,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
       pathname: '',
     },
   } = props;
+  useEffect(() => {}, []);
   const { formatMessage } = useIntl();
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
@@ -57,8 +58,19 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
               </a>
               <div className="flex_1"></div>
               <div className={styles.header_account}>
-                <span>没有 QingCloud 账号？</span>
-                <a href="/signup">&nbsp;立即注册</a>
+                {location.pathname === '/user/login' ? (
+                  <div>
+                    <span>没有 QingCloud 账号？</span>
+                    <Link to="/user/register">&nbsp;立即注册</Link>
+                  </div>
+                ) : (
+                  <div>
+                    <span>已有 QingCloud 账号？</span>
+                    <Link to="/user/login">&nbsp;立即登录</Link>
+                  </div>
+                )}
+
+                {/* <a href="/signup">&nbsp;立即注册</a> */}
               </div>
             </div>
             <div className={styles.content}>
@@ -80,17 +92,48 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             </div>
             <DefaultFooter />
           </div>
-          <div style={{ flex: 1 }}>
-            <div
-              className="column__container"
-              style={{ backgroundSize: 'cover', display: 'flex', cursor: 'pointer' }}
-            >
+          <div
+            style={{
+              flex: 1,
+              overflow: 'hidden',
+            }}
+          >
+            <Carousel autoplay style={{ overflow: 'hidden', height: '100vh' }}>
               <img
                 src="https://s3.qingcloud.com/files/2020/08/console-@2x.jpg"
                 alt=""
                 style={{ objectFit: 'cover', width: '100%', height: '100vh' }}
               />
-            </div>
+              <img
+                src="https://s3.qingcloud.com/files/2020/08/signup-banner.jpg"
+                alt=""
+                style={{ objectFit: 'cover', width: '100%', height: '100vh' }}
+              />
+            </Carousel>
+
+            {/* <div
+              className="column__container"
+              style={{ backgroundSize: 'cover', display: 'flex', cursor: 'pointer' }}
+            >
+              <Carousel autoplay>
+                <img
+                  src="https://s3.qingcloud.com/files/2020/08/console-@2x.jpg"
+                  alt=""
+                  style={{ objectFit: 'cover', width: '100%', height: '100vh' }}
+                />
+                <img
+                  src="https://s3.qingcloud.com/files/2020/08/signup-banner.jpg"
+                  alt=""
+                  style={{ objectFit: 'cover', width: '100%', height: '100vh' }}
+                />
+              </Carousel>
+
+              {/* <img
+                src="https://s3.qingcloud.com/files/2020/08/console-@2x.jpg"
+                alt=""
+                style={{ objectFit: 'cover', width: '100%', height: '100vh' }}
+              />
+            </div> */}
           </div>
         </div>
       </div>
