@@ -83,6 +83,7 @@
                 // name: 'welcome',
                 name: '工单',
                 icon: 'dashboard',
+                hideInMenu: true,
                 component: './ticks',
               },
               {

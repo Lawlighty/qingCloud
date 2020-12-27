@@ -17,6 +17,8 @@ import {
 } from 'antd';
 import { Link } from 'umi';
 import { SearchOutlined, FormOutlined } from '@ant-design/icons';
+// import RightContent from '@/components/GlobalHeader/RightContent;
+import TicksBuilder from '@/components/ticksBuild/TicksBuilder';
 
 interface paginationType {
   current: number;
@@ -44,13 +46,25 @@ const tickType = {
   },
 };
 const Ticks: React.FC<{}> = (props) => {
-  const [visibel, setVisible] = useState<boolean>(false);
+  const [activeKye, setActiveKye] = useState<string>('1');
+  const [visible, setVisible] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [pagination, setPagination] = useState<paginationType>({ current: 1, pageSize: 10 });
+  const callback = (key) => {
+    console.log('key', key);
+    setActiveKye(key);
+  };
   const searchTicks = (e: any) => {
     console.log('e', e.target.value);
   };
   const handleOk = () => {
+    setVisible(false);
+  };
+  // 工单模态框
+  const onCancel = (target: boolean) => {
+    setVisible(target);
+  };
+  const subTicks = (form) => {
     setVisible(false);
   };
   const OperationsSlot = {
@@ -157,6 +171,7 @@ const Ticks: React.FC<{}> = (props) => {
   ];
   return (
     <PageContainer>
+      <TicksBuilder visible={visible} onCancel={onCancel} subTicks={subTicks} />
       <div className="bg_div_white font_12">
         <div className={`${styles.notification_tips} ${styles.c_notifications_bg}`}>
           <div>
@@ -166,10 +181,37 @@ const Ticks: React.FC<{}> = (props) => {
           </div>
         </div>
         <div className="my_tabs_600">
-          <Tabs tabBarExtraContent={OperationsSlot} centered>
+          <Tabs
+            activeKey={activeKye}
+            tabBarExtraContent={OperationsSlot}
+            centered
+            onChange={callback}
+          >
             <TabPane tab="由我创建" key="1"></TabPane>
             <TabPane tab="与我共享" key="2"></TabPane>
           </Tabs>
+        </div>
+        <div>
+          {activeKye === '2' ? (
+            <div className={styles.tickets_items}>
+              {[1, 2, 3, 4].map((item, index) => (
+                <div
+                  className={styles.tickets_item}
+                  style={{ borderBottom: index === 3 ? '' : '1px solid #e4ebf1' }}
+                >
+                  <div className={styles.ticket_details}>
+                    <div className={styles.summary}>
+                      用户 13616859570 (usr-V1l8PRHR) 邀请你参与处理一条工单。
+                    </div>
+                    <Button type="primary" style={{ marginRight: 10 }}>
+                      接受
+                    </Button>
+                    <Button>拒绝</Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
         <div>
           <Table
@@ -181,9 +223,9 @@ const Ticks: React.FC<{}> = (props) => {
           />
         </div>
       </div>
-      <Modal
+      {/* <Modal
         title="创建工单"
-        visible={visibel}
+        visible={visible}
         okText="提交"
         cancelText="取消"
         onOk={handleOk}
@@ -192,7 +234,7 @@ const Ticks: React.FC<{}> = (props) => {
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </Modal>
+      </Modal> */}
     </PageContainer>
   );
 };
