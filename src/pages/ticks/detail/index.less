@@ -1,0 +1,39 @@
+@c_notifications_bg: #e4ebf1;
+
+.project_menu {
+  font-size: 12px;
+  width: 164px;
+}
+.c_notifications_bg {
+  background: @c_notifications_bg;
+}
+
+.ant-tabs-nav-wrap {
+  background: @c_notifications_bg !important;
+}
+.notification_tips {
+  padding: 20px;
+}
+.tickets_items {
+  margin: 0 30px 10px 30px;
+  border: 1px solid #e4ebf1;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  .ticket_item {
+    position: relative;
+    // border-bottom: 1px solid #e4ebf1;
+    cursor: pointer;
+  }
+  .ticket_item_border_bot {
+    border-bottom: 1px solid #e4ebf1;
+  }
+  .ticket_details {
+    display: flex;
+    align-items: center;
+    padding: 8px 32px 8px 30px;
+    .summary {
+      flex: 1;
+    }
+  }
+}

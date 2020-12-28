@@ -81,10 +81,18 @@
               {
                 path: '/ticks',
                 // name: 'welcome',
-                name: '工单',
+                name: '工单列表',
                 icon: 'dashboard',
                 hideInMenu: true,
                 component: './ticks',
+              },
+              {
+                path: '/ticks/:page',
+                // name: 'welcome',
+                name: '工单详情',
+                icon: 'dashboard',
+                hideInMenu: true,
+                component: './ticks/detail',
               },
               {
                 component: './404',

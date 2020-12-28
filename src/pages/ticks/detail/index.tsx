@@ -14,12 +14,16 @@ import {
   Table,
   Space,
   Badge,
-  Tag,
   Popconfirm,
-  message,
 } from 'antd';
 import { Link } from 'umi';
-import { SearchOutlined, FormOutlined } from '@ant-design/icons';
+
+import {
+  SearchOutlined,
+  FormOutlined,
+  LeftOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
 // import RightContent from '@/components/GlobalHeader/RightContent;
 import TicksBuilder from '@/components/ticksBuild/TicksBuilder';
 
@@ -48,7 +52,7 @@ const tickType = {
     color: '#87d068',
   },
 };
-const Ticks: React.FC<{}> = (props) => {
+const TicksDetail: React.FC<{}> = (props) => {
   const [activeKye, setActiveKye] = useState<string>('1');
   const [visible, setVisible] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -102,13 +106,6 @@ const Ticks: React.FC<{}> = (props) => {
         <p className="title">没有我创建的工单</p>
       </div>
     ),
-  };
-
-  // 删除工单
-  const confirm = (e, record) => {
-    e.stopPropagation();
-    console.log('record.name', record.name);
-    message.info(record.name);
   };
 
   const columns = [
@@ -165,33 +162,13 @@ const Ticks: React.FC<{}> = (props) => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Tag color="#87d068" className="cursor_p">
-            <Link to={'/ticks/' + record.name}>查看</Link>
-          </Tag>
-          <Popconfirm
-            placement="topLeft"
-            title="确定删除吗?"
-            onConfirm={(e) => {
-              confirm(e, record);
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Tag color="#f50" className="cursor_p">
-              删除
-            </Tag>
-          </Popconfirm>
+          <a>查看 {record.name}</a>
+          <a>删除</a>
         </Space>
       ),
     },
   ];
   const data = [
-    {
-      name: '202012238518',
-      info: '我的工单测试',
-      state: 'loading',
-      createtime: '2020-12-20 23:39:25',
-    },
     {
       name: '202012238518',
       info: '我的工单测试',
@@ -207,8 +184,29 @@ const Ticks: React.FC<{}> = (props) => {
           <div>
             工单系统是您与 QingCloud
             最直接有效的沟通平台。您可以通过工单系统来询问任何问题，我们的工作人员会第一时间为您解决问题。同时我们也欢迎您通过工单向
-            QingCloud 提出反馈建议。
+            QingCloud 提出反馈建议。aaaa这是详情
           </div>
+        </div>
+        <div className="flex padding_10_20 border_b_e4ebf1">
+          <Button
+          // onClick={() => {
+          //   router.push('/ticks');
+          // }}
+          // onClick={() => {
+          //   props.dispatch(routerRedux).push('/ticks');
+          // }}
+          >
+            <LeftOutlined />
+            返回工单列表
+          </Button>
+          <div className="flex_1" />
+          <Button type="primary" className="margin_r_20">
+            标记为已解决
+          </Button>
+          <Button>
+            <UsergroupAddOutlined className="font_16" />
+            分享
+          </Button>
         </div>
         <div className="my_tabs_600">
           <Tabs
@@ -245,15 +243,6 @@ const Ticks: React.FC<{}> = (props) => {
         </div>
         <div>
           <Table
-            onRow={(record) => {
-              return {
-                // 点击行
-                onClick: (event) => {
-                  // console.log('event', event);
-                  // console.log('record', record);
-                },
-              };
-            }}
             className="font_12_impor"
             locale={locale}
             columns={columns}
@@ -262,19 +251,7 @@ const Ticks: React.FC<{}> = (props) => {
           />
         </div>
       </div>
-      {/* <Modal
-        title="创建工单"
-        visible={visible}
-        okText="提交"
-        cancelText="取消"
-        onOk={handleOk}
-        onCancel={() => setVisible(false)}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal> */}
     </PageContainer>
   );
 };
-export default connect(() => ({}))(Ticks);
+export default connect(() => ({}))(TicksDetail);

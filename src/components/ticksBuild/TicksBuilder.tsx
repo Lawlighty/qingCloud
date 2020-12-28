@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Select, Input, Upload } from 'antd';
 import styles from './index.less';
 import { PlusOutlined } from '@ant-design/icons';
+import MoveTitle from '@/components/moveTitle/moveTitle';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -68,41 +69,6 @@ const TicksBuilder: React.FC<{}> = (props) => {
     },
   ]);
 
-  // 计算是否超出屏幕;超出后
-  const inWindow = (left: number, top: number, startPosX: number, startPosY: number) => {
-    const H = document.body.clientHeight;
-    const W = document.body.clientWidth;
-    if (
-      (left < 100 && startPosX > left) ||
-      (left > W - 100 && startPosX < left) ||
-      (top < 20 && startPosY > top) ||
-      (top > H - 20 && startPosY < top)
-    ) {
-      document.body.onmousemove = null;
-      document.body.onmouseup = null;
-      return 0;
-    }
-    return 1;
-  };
-  const onMouseDown = (e: any) => {
-    console.log('onMouseDown');
-    e.preventDefault(); // 记录初始移动的鼠标位置
-    const startPosX = e.clientX;
-    const startPosY = e.clientY;
-    document.body.onmousemove = (e) => {
-      const left = e.clientX - startPosX + styleLeft;
-      const top = e.clientY - startPosY + styleTop;
-      if (inWindow(e.clientX, e.clientY, startPosX, startPosY)) {
-        console.log('每超出');
-        setStyleTop(top);
-        setStyleLeft(left);
-      }
-    }; // 鼠标放开时去掉移动事件
-    document.body.onmouseup = function () {
-      document.body.onmousemove = null;
-    };
-  };
-
   const selectChange = (e: any, name: string) => {
     setValues({
       ...form,
@@ -154,17 +120,24 @@ const TicksBuilder: React.FC<{}> = (props) => {
         const toForm = form;
         toForm.accessory = fileList;
         console.log('toForm', toForm);
-
         subTicks();
       }}
       style={{ left: styleLeft, top: styleTop }}
+      // style={{
+      //   left: getStyleLeft(),
+      //   top: getStyleTop(),
+      // }}
       width={700}
       okText="提交"
       cancelText="取消"
       title={
-        <div style={{ width: '100%', cursor: 'move', fontWeight: '600' }} onMouseDown={onMouseDown}>
-          创建工单
-        </div>
+        <MoveTitle
+          styleTop={100}
+          styleLeft={0}
+          title="创建工单"
+          setStyleTop={setStyleTop}
+          setStyleLeft={setStyleLeft}
+        />
       }
       className={styles.cc}
     >
