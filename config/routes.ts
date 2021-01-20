@@ -62,7 +62,7 @@
                     path: '/calculate/mapping',
                     // name: 'sub-page',
                     name: '映像',
-                    component: './Welcome',
+                    component: './Calculate/Mapping',
                   },
                   {
                     path: '/calculate/ssh',

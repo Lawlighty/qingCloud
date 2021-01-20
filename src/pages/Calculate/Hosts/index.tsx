@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
 import styles from './index.less';
-import { Tabs, Button, notification, Table, Dropdown, Menu, message, Input, Tooltip } from 'antd';
+import {
+  Tabs,
+  Button,
+  notification,
+  Table,
+  Dropdown,
+  Menu,
+  message,
+  Input,
+  Tooltip,
+  Spin,
+} from 'antd';
 import { Link } from 'umi';
 import {
   RedoOutlined,
@@ -31,9 +42,61 @@ const Hosts: React.FC<{}> = (props) => {
   // view
   const [currentView, setCurrentView] = useState<string>('1');
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      id: 1,
+      name: '主机1',
+      state: '状态',
+      type: 'type',
+      mapping: 'mapping',
+      warningState: 'all',
+    },
+    {
+      id: 2,
+      name: '主机2',
+      state: '状态',
+      type: 'type',
+      mapping: 'mapping',
+      warningState: 'normal',
+    },
+    {
+      id: 3,
+      name: '主机3',
+      state: '状态',
+      type: 'type',
+      mapping: 'mapping',
+      warningState: 'warning',
+    },
+    {
+      id: 4,
+      name: '主机4',
+      state: '状态',
+      type: 'type',
+      mapping: 'mapping',
+      warningState: 'warning',
+    },
+    {
+      id: 5,
+      name: '主机5',
+      state: '状态',
+      type: 'type',
+      mapping: 'mapping',
+      warningState: 'normal',
+    },
+  ]);
   const [pagination, setPagination] = useState<object>({ current: 1, pageSize: 10 });
 
+  // table
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const onSelectChange = (selectedRowKeys) => {
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    setSelectedRowKeys(selectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
   const fetch = (params = {}) => {};
   const handleTableChange = (pagination, filters, sorter) => {
     fetch({
@@ -53,19 +116,24 @@ const Hosts: React.FC<{}> = (props) => {
     console.log(value);
   };
 
+  // 刷新
+  const toRefush = () => {
+    console.log('点击刷新');
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
   const columns = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      sorter: true,
-      width: '20%',
     },
     {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
-      sorter: true,
     },
     {
       title: '状态',
@@ -109,6 +177,7 @@ const Hosts: React.FC<{}> = (props) => {
         { text: '告警', value: 'warning' },
         { text: '无监控', value: 'none' },
       ],
+      onFilter: (value, record) => record.warningState.indexOf(value) === 0,
     },
     {
       title: '创建于',
@@ -116,9 +185,11 @@ const Hosts: React.FC<{}> = (props) => {
       key: 'createby',
     },
   ];
+
+  //更多操作
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" icon={<UserOutlined />}>
+      <Menu.Item key="1" disabled icon={<UserOutlined />}>
         1st menu item
       </Menu.Item>
       <Menu.Item key="2" icon={<UserOutlined />}>
@@ -176,7 +247,12 @@ const Hosts: React.FC<{}> = (props) => {
         <div className={styles.table_form}>
           <div className={styles.table_fun}>
             <div className="flex flex_1">
-              <div className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36}`}>
+              <div
+                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                  loading ? 'mydisabled' : ''
+                }`}
+                onClick={toRefush}
+              >
                 <RedoOutlined />
               </div>
               <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
@@ -240,14 +316,20 @@ const Hosts: React.FC<{}> = (props) => {
               </Tooltip>
             </div>
           </div>
-          <Table
-            columns={columns}
-            // rowKey={(record) => record.login.uuid}
-            dataSource={data}
-            pagination={pagination}
-            loading={loading}
-            onChange={handleTableChange}
-          />
+          <Spin tip="数据加载中..." spinning={loading}>
+            <Table
+              columns={columns}
+              rowSelection={rowSelection}
+              rowKey={(record) => record.id}
+              dataSource={data}
+              pagination={pagination}
+              loading={loading}
+              onChange={handleTableChange}
+            />
+          </Spin>
+          <p className="tips">
+            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+          </p>
         </div>
       </div>
     </PageContainer>
