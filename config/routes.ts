@@ -175,6 +175,7 @@
                 path: '/admin',
                 // name: 'admin',
                 name: '管理页面',
+                hideInMenu: true,
                 icon: 'crown',
                 component: './Admin',
 
@@ -192,6 +193,7 @@
                 // name: 'list.table-list',
                 name: '查询表格',
                 icon: 'table',
+                hideInMenu: true,
                 path: '/list',
                 component: './ListTableList',
               },
