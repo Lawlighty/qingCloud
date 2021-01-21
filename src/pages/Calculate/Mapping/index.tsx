@@ -2,18 +2,7 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
 import styles from './index.less';
-import {
-  Tabs,
-  Button,
-  notification,
-  Table,
-  Dropdown,
-  Menu,
-  message,
-  Input,
-  Tooltip,
-  Spin,
-} from 'antd';
+import { Tabs, Button, Table, Dropdown, Menu, message, Input, Spin, Badge, Drawer } from 'antd';
 import { Link } from 'umi';
 import {
   RedoOutlined,
@@ -21,10 +10,6 @@ import {
   DownOutlined,
   UserOutlined,
   AppstoreFilled,
-  EyeFilled,
-  DatabaseFilled,
-  FundFilled,
-  ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 
@@ -41,6 +26,8 @@ const Mapping: React.FC<{}> = (props) => {
   const [currentTabs, setCurrentTabs] = useState<string>('1');
   // view
   const [currentView, setCurrentView] = useState<string>('1');
+  //抽屉
+  const [visibleDriver, setVisibleDriver] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState([
     {
@@ -49,6 +36,8 @@ const Mapping: React.FC<{}> = (props) => {
       state: 'usable',
       cap: 20,
       plat: 'linux',
+      suppPhy: true,
+      suppIpv6: true,
     },
     {
       id: 'arch201609x64a',
@@ -56,6 +45,8 @@ const Mapping: React.FC<{}> = (props) => {
       state: 'usable',
       cap: 20,
       plat: 'linux',
+      suppPhy: true,
+      suppIpv6: true,
     },
     {
       id: 'arch20180701x64',
@@ -63,6 +54,8 @@ const Mapping: React.FC<{}> = (props) => {
       state: 'unusable',
       cap: 19,
       plat: 'linux',
+      suppPhy: true,
+      suppIpv6: true,
     },
     {
       id: 'bio8x64',
@@ -70,6 +63,8 @@ const Mapping: React.FC<{}> = (props) => {
       state: 'usable',
       cap: 12,
       plat: 'linux',
+      suppPhy: true,
+      suppIpv6: true,
     },
     {
       id: 'arch201310x64a2',
@@ -77,6 +72,8 @@ const Mapping: React.FC<{}> = (props) => {
       state: 'usable',
       cap: 20,
       plat: 'linux',
+      suppPhy: true,
+      suppIpv6: true,
     },
   ]);
   const [pagination, setPagination] = useState<object>({ current: 1, pageSize: 10 });
@@ -125,6 +122,13 @@ const Mapping: React.FC<{}> = (props) => {
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id.length - b.id.length,
+      render: (text) => {
+        return (
+          <div className="span_line cursor_p color_green" onClick={() => setVisibleDriver(true)}>
+            {text}
+          </div>
+        );
+      },
     },
     {
       title: '名称',
@@ -141,6 +145,17 @@ const Mapping: React.FC<{}> = (props) => {
         { text: '已弃用', value: 'unusable' },
       ],
       onFilter: (value, record) => record.state.indexOf(value) === 0,
+      render: (text) => {
+        return text === 'usable' ? (
+          <div className="succes_processing">
+            <Badge status="processing" text="可用" />
+          </div>
+        ) : (
+          <div className="succes_default">
+            <Badge status="default" text="已弃用" />
+          </div>
+        );
+      },
     },
     {
       title: '容量(G)',
@@ -152,6 +167,22 @@ const Mapping: React.FC<{}> = (props) => {
       title: '平台',
       dataIndex: 'plat',
       key: 'plat',
+    },
+    {
+      title: '支持物理机',
+      dataIndex: 'suppPhy',
+      key: 'suppPhy',
+      render: (text) => {
+        return text ? '是' : '否';
+      },
+    },
+    {
+      title: '支持 IPv6',
+      dataIndex: 'suppIpv6',
+      key: 'suppIpv6',
+      render: (text) => {
+        return text ? '是' : '否';
+      },
     },
   ];
 
@@ -243,6 +274,18 @@ const Mapping: React.FC<{}> = (props) => {
               onChange={handleTableChange}
             />
           </Spin>
+          {/* 抽屉 */}
+          <Drawer
+            title="Basic Drawer"
+            placement="right"
+            closable={false}
+            onClose={() => setVisibleDriver(false)}
+            visible={visibleDriver}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Drawer>
           <p className="tips">
             * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
           </p>

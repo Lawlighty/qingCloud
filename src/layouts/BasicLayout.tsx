@@ -18,6 +18,7 @@ import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
+import logo2 from '../assets/geek.png';
 
 const noMatch = (
   <Result
@@ -131,6 +132,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     <ProLayout
       // logo={logo}
       logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
+      // logo={logo2}
       // 国际化
       formatMessage={formatMessage}
       {...props}

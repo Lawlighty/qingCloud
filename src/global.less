@@ -131,6 +131,37 @@ ol {
   cursor: default;
   opacity: 0.6;
 }
+//焦点出现下划线
+
+.span_line:hover {
+  text-decoration: underline;
+}
+
+//状态 succes_processing
+.succes_processing {
+  .ant-badge-status-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .ant-badge-status-text {
+    color: #00aa72;
+  }
+  .ant-badge-status-processing {
+    background-color: #00aa72;
+  }
+  .ant-badge-status-processing::after {
+    border: 1px solid #00aa72;
+  }
+}
+.succes_default {
+  .ant-badge-status-text {
+    color: #999;
+  }
+  .ant-badge-status-dot {
+    width: 10px;
+    height: 10px;
+  }
+}
 //通知页面标签页样式
 .notification_tab {
   .ant-tabs-nav {
