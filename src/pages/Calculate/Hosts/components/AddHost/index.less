@@ -1,0 +1,82 @@
+.form {
+  display: flex;
+  background: #e4ebf1;
+  .wizard {
+    flex: 1;
+    .wizard_nav {
+      background: #f5f7fa;
+      padding: 15px 0 13px 0;
+      border-bottom: 1px solid #e4ebf1;
+    }
+    .step_inner {
+      background: #fff;
+      height: 346px;
+      padding: 30px;
+      overflow: auto;
+    }
+    .step_action {
+      display: flex;
+      border-top: 1px solid #e4ebf1;
+      background: #f5f7fa;
+      padding: 15px 30px;
+      overflow: hidden;
+    }
+  }
+  .illustrate {
+    width: 360px;
+    padding: 20px;
+    .title {
+      font-size: 16px;
+    }
+    .table {
+      font-size: 12px;
+      margin: 15px 0;
+      background: #fff;
+      .items {
+        display: flex;
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #e4ebf1;
+        .label {
+          min-width: 70px;
+        }
+      }
+      .items:hover {
+        background: rgba(242, 245, 248);
+      }
+    }
+    .price_div {
+      font-size: 12px;
+      color: #0366d6;
+      background: #eaf3fe;
+      border: 1px solid #0366d6;
+      padding: 8px 12px;
+      .total {
+        color: #0366d6;
+      }
+      .price {
+        font-weight: bold;
+        margin: 0 4px;
+        color: #0366d6;
+        font-size: 14px;
+      }
+      .unit {
+        padding: 0 4px 0 0;
+        color: #0366d6;
+      }
+      .none {
+        color: #0366d6;
+      }
+      .small_price {
+        font-weight: bold;
+        color: #0366d6;
+        padding: 0 2px;
+      }
+      .currency {
+        font-family: 'Arial';
+        color: #0366d6;
+        margin: 0 2px;
+      }
+    }
+  }
+}

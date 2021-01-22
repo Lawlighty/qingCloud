@@ -302,7 +302,7 @@ const Mapping: React.FC<{}> = (props) => {
               <div className={styles.basic_info}>
                 <div className={styles.basic_info_item}>
                   <div className={styles.label}>ID</div>
-                  <div className={styles.info}>arch201310x64a</div>
+                  <div className={`${styles.info} color_green`}>arch201310x64a</div>
                 </div>
                 <div className={styles.basic_info_item}>
                   <div className={styles.label}>名称</div>

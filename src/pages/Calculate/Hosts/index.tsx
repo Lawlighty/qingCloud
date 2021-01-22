@@ -27,6 +27,8 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import AddHost from './components/AddHost/index';
+import TicksBuilder from '@/components/ticksBuild/TicksBuilder';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -88,6 +90,16 @@ const Hosts: React.FC<{}> = (props) => {
 
   // table
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  // 新建主机表单
+  const [visible, setVisible] = useState<boolean>(false);
+
+  const onCancel = () => {
+    setVisible(false);
+  };
+  const subHost = () => {
+    console.log('提交主机表单信息');
+  };
 
   const onSelectChange = (selectedRowKeys) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -202,6 +214,8 @@ const Hosts: React.FC<{}> = (props) => {
   );
   return (
     <PageContainer>
+      <AddHost visible={visible} onCancel={onCancel} subHost={subHost} />
+      {/* <TicksBuilder visible={visible} onCancel={onCancel} subTicks={subHost} /> */}
       <div className="bg_div_white font_12">
         <NotificTips>
           {currentTabs === '1' && (
@@ -255,7 +269,14 @@ const Hosts: React.FC<{}> = (props) => {
               >
                 <RedoOutlined />
               </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+              <Button
+                type="primary"
+                className={styles.height_36}
+                style={{ marginRight: 4 }}
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
                 <PlusOutlined />
                 创建
               </Button>
