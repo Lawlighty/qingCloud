@@ -285,6 +285,30 @@ ol {
   // background: #020508;
   // color: #fff;
 }
+
+// 创建主机 内嵌table
+.my_build_table {
+  .ant-table-tbody {
+    background: #f1f7ff;
+    color: #0366d6;
+    font-size: 12px;
+  }
+  .ant-table-row {
+    background: #f1f7ff;
+    cursor: pointer;
+  }
+
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: rgb(226, 240, 255);
+  }
+  .clickRowStyl {
+    background: #0366d6 !important;
+    color: #fff !important;
+  }
+  .ant-table-tbody > .clickRowStyl:hover > td {
+    background: #0366d6 !important;
+  }
+}
 //工单
 .ticket-empty-notice {
   height: 468px;
