@@ -11,7 +11,7 @@ const proSettings: DefaultSettings = {
   primaryColor: '#00aa72', //青云绿
   layout: 'side',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
   title: '',

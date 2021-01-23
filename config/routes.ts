@@ -65,6 +65,12 @@
                     component: './Calculate/Mapping',
                   },
                   {
+                    path: '/calculate/mapping/:page',
+                    hideInMenu: true,
+                    name: '映像详情',
+                    component: './Calculate/Mapping/MappingDetail',
+                  },
+                  {
                     path: '/calculate/ssh',
                     // name: 'sub-page',
                     name: 'SSH 密钥',

@@ -28,7 +28,6 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import AddHost from './components/AddHost/index';
-import TicksBuilder from '@/components/ticksBuild/TicksBuilder';
 
 const { TabPane } = Tabs;
 const { Search } = Input;

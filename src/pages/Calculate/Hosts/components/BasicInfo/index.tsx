@@ -8,6 +8,7 @@ const BasicInfo: React.FC<{}> = (props) => {
   const [hostName, setHostName] = useState('');
   const [hostNum, setHostNum] = useState(1);
   const [sshWay, setSshWay] = useState(0);
+
   const [sshWayList, setSshWayList] = useState([
     {
       value: 0,
@@ -18,6 +19,7 @@ const BasicInfo: React.FC<{}> = (props) => {
       name: '密码',
     },
   ]);
+  const [password, setPassword] = useState('');
   // 高级选项
   const [showHigh, setShowHigh] = useState(false);
   // 用户数据
@@ -110,12 +112,33 @@ const BasicInfo: React.FC<{}> = (props) => {
             <Input disabled value="root" />
           </div>
         </div>
-        <div className={styles.info_item}>
-          <div className={styles.label}>SSH密钥</div>
-          <div className={styles.controls}>
-            目前没有可选的 SSH 密钥，请先<div className={styles.add}>+ 创建一个</div>
+        {sshWay === 0 && (
+          <div className={styles.info_item}>
+            <div className={styles.label}>SSH密钥</div>
+            <div className={styles.controls}>
+              目前没有可选的 SSH 密钥，请先<div className={styles.add}>+ 创建一个</div>
+            </div>
           </div>
-        </div>
+        )}
+        {sshWay === 1 && (
+          <div>
+            <div className={styles.info_item}>
+              <div className={styles.label}>密码</div>
+              <div className={styles.controls}>
+                <Input.Password
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className={styles.info_item}>
+              <div className={styles.alert}>密码至少8位，并包括大小写字母及数字。</div>
+            </div>
+          </div>
+        )}
+
         {!showHigh && (
           <div className={styles.info_item}>
             <div
