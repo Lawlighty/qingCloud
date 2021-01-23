@@ -1,0 +1,72 @@
+.minW70 {
+  min-width: 70px;
+}
+.step_inner {
+  background: #fff;
+  height: 346px;
+  padding: 30px;
+  overflow: auto;
+  .instances_type {
+    font-size: 12px;
+    .title {
+      margin: 8px 0;
+    }
+    .options {
+      margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      .option {
+        padding: 4px 12px;
+        font-size: 12px;
+        position: relative;
+        color: #0366d6;
+        margin: 3px 1px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 2px;
+        background: #f1f7ff;
+      }
+      .option:first-child {
+        margin-left: 0;
+      }
+      .option.active {
+        background: #0366d6;
+        color: #fff;
+      }
+    }
+    .help {
+      color: #939ea9;
+      padding: 9px 0;
+    }
+    .more_opt {
+      margin: 10px 0;
+      display: flex;
+      .help {
+        cursor: pointer;
+        color: #0366d6;
+      }
+      .help:hover {
+        text-decoration: underline;
+      }
+      .cpu_topology {
+        margin-left: 10px;
+        .cpu_topology_item {
+          display: flex;
+          align-items: center;
+          .title {
+          }
+          .label {
+            padding: 8px 10px 8px 0;
+            margin: 0;
+          }
+          .info {
+            margin-right: 6px;
+          }
+          .value {
+            width: 50px;
+          }
+        }
+      }
+    }
+  }
+}

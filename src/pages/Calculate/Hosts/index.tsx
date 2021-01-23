@@ -99,6 +99,7 @@ const Hosts: React.FC<{}> = (props) => {
   };
   const subHost = () => {
     console.log('提交主机表单信息');
+    setVisible(false);
   };
 
   const onSelectChange = (selectedRowKeys) => {
@@ -288,9 +289,9 @@ const Hosts: React.FC<{}> = (props) => {
                   </Button>
                 </Dropdown>
               </div>
-              <div className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36}`}>
+              {/* <div className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36}`} >
                 <EyeFilled />
-              </div>
+              </div> */}
               <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
             </div>
             <div className="flex">
