@@ -47,6 +47,27 @@
                 component: './overview',
               },
               {
+                path: '/account',
+                // name: 'welcome',
+                name: '账户',
+                // icon: 'dashboard',
+                hideInMenu: true,
+                routes: [
+                  {
+                    path: '/account/account_set',
+                    // name: 'sub-page',
+                    name: '账户设置',
+                    component: './Account/AccountSet/index',
+                  },
+                  {
+                    path: '/account/account_safe',
+                    // name: 'sub-page',
+                    name: '账户安全',
+                    component: './Account/AccountSafe/index',
+                  },
+                ],
+              },
+              {
                 path: '/calculate',
                 // name: 'admin',
                 name: '计算',
