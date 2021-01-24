@@ -77,6 +77,12 @@
                     component: './Calculate/SshKeys',
                   },
                   {
+                    path: '/calculate/ssh/:page',
+                    hideInMenu: true,
+                    name: 'SSH 密钥详情',
+                    component: './Calculate/SshKeys/SshKeysDetail',
+                  },
+                  {
                     path: '/calculate/equip',
                     // name: 'sub-page',
                     name: '设备',

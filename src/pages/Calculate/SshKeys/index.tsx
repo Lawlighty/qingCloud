@@ -2,27 +2,21 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
 import styles from './index.less';
-import {
-  Tabs,
-  Button,
-  notification,
-  Table,
-  Dropdown,
-  Menu,
-  message,
-  Input,
-  Tooltip,
-  Spin,
-} from 'antd';
+import { Button, Table, Dropdown, Menu, message, Input, Spin } from 'antd';
 import { Link } from 'umi';
 import {
+  KeyOutlined,
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
   AppstoreFilled,
   CopyOutlined,
-  KeyOutlined,
+  TagsOutlined,
+  RotateLeftOutlined,
+  ImportOutlined,
+  IssuesCloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 
@@ -30,14 +24,6 @@ const { Search } = Input;
 
 // const operations = <Button>Extra Action</Button>;
 const SshKeys: React.FC<{}> = (props) => {
-  const operations = {
-    left: <div style={{ width: '20px' }} />,
-    // right: <Button>Right Extra Action</Button>,
-  };
-  // tab
-  const [currentTabs, setCurrentTabs] = useState<string>('1');
-  // view
-  const [currentView, setCurrentView] = useState<string>('1');
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState([
     {
@@ -115,6 +101,13 @@ const SshKeys: React.FC<{}> = (props) => {
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id.length - b.id.length,
+      render: (text) => {
+        return (
+          <Link to={`/calculate/ssh/${text}`} className="span_line cursor_p color_green">
+            {text}
+          </Link>
+        );
+      },
     },
     {
       title: '名称',
@@ -148,15 +141,24 @@ const SshKeys: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" disabled icon={<EditOutlined />}>
+        修改
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<TagsOutlined />}>
+        绑定标签
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="4" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="5" icon={<IssuesCloseOutlined />}>
+        重置系统
+      </Menu.Item>
+      <Menu.Item key="6" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );

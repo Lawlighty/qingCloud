@@ -2,46 +2,37 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
 import styles from './index.less';
-import {
-  Tabs,
-  Button,
-  notification,
-  Table,
-  Dropdown,
-  Menu,
-  message,
-  Input,
-  Tooltip,
-  Spin,
-} from 'antd';
+import { Button, Table, Dropdown, Menu, message, Input, Spin } from 'antd';
 import { Link } from 'umi';
 import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
   AppstoreFilled,
-  EyeFilled,
-  DatabaseFilled,
-  FundFilled,
-  ControlFilled,
+  CloseSquareOutlined,
+  TagsOutlined,
+  NodeIndexOutlined,
+  ThunderboltOutlined,
+  RotateLeftOutlined,
+  ImportOutlined,
+  DeleteOutlined,
+  LaptopOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import AskNetwork from './components/AskNetwork/index';
 
-const { TabPane } = Tabs;
 const { Search } = Input;
 
 // const operations = <Button>Extra Action</Button>;
 const Network: React.FC<{}> = (props) => {
-  const operations = {
-    left: <div style={{ width: '20px' }} />,
-    // right: <Button>Right Extra Action</Button>,
-  };
-  // tab
-  const [currentTabs, setCurrentTabs] = useState<string>('1');
-  // view
-  const [currentView, setCurrentView] = useState<string>('1');
   const [loading, setLoading] = useState<boolean>(false);
+
+  // 申请网卡
+  const [askVisible, setAskVisible] = useState<boolean>(false);
+  const onCancel = () => {
+    setAskVisible(false);
+  };
   const [data, setData] = useState([
     {
       mac: 'arch201310x64a',
@@ -185,17 +176,41 @@ const Network: React.FC<{}> = (props) => {
     },
   ];
 
-  //更多操作
+  // 更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" disabled icon={<EditOutlined />}>
+        修改
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<LaptopOutlined />}>
+        分配到主机
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<CloseSquareOutlined />}>
+        解绑
+      </Menu.Item>
+      <Menu.Item key="4" icon={<ThunderboltOutlined />}>
+        修改安全组
+      </Menu.Item>
+      <Menu.Item key="5" icon={<EditOutlined />}>
+        修改内网 IP
+      </Menu.Item>
+      <Menu.Item key="6" icon={<NodeIndexOutlined />}>
+        绑定公网 IPV4
+      </Menu.Item>
+      <Menu.Item key="7" icon={<NodeIndexOutlined />}>
+        绑定基础网络 IP
+      </Menu.Item>
+      <Menu.Item key="8" icon={<TagsOutlined />}>
+        绑定标签
+      </Menu.Item>
+      <Menu.Item key="9" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="10" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="11" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );
@@ -219,7 +234,14 @@ const Network: React.FC<{}> = (props) => {
               >
                 <RedoOutlined />
               </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+              <Button
+                type="primary"
+                className={styles.height_36}
+                style={{ marginRight: 4 }}
+                onClick={() => {
+                  setAskVisible(true);
+                }}
+              >
                 <PlusOutlined />
                 申请
               </Button>
@@ -257,6 +279,8 @@ const Network: React.FC<{}> = (props) => {
             * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
           </p>
         </div>
+        {/* 申请网卡 */}
+        <AskNetwork visible={askVisible} onClose={onCancel} />
       </div>
     </PageContainer>
   );

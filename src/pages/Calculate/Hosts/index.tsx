@@ -19,12 +19,26 @@ import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
   AppstoreFilled,
-  EyeFilled,
   DatabaseFilled,
   FundFilled,
   ControlFilled,
+  CaretRightOutlined,
+  CloseSquareOutlined,
+  UndoOutlined,
+  SettingOutlined,
+  CameraOutlined,
+  TagsOutlined,
+  NodeIndexOutlined,
+  PrinterOutlined,
+  KeyOutlined,
+  ThunderboltOutlined,
+  BellOutlined,
+  CopyOutlined,
+  RotateLeftOutlined,
+  ImportOutlined,
+  IssuesCloseOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import AddHost from './components/AddHost/index';
@@ -200,15 +214,63 @@ const Hosts: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" disabled icon={<CaretRightOutlined />}>
+        启动
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<CloseSquareOutlined />}>
+        关机
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<UndoOutlined />}>
+        重启
+      </Menu.Item>
+      <Menu.Item key="4" icon={<SettingOutlined />}>
+        更改配置
+      </Menu.Item>
+      <Menu.Item key="5" icon={<CameraOutlined />}>
+        创建备份
+      </Menu.Item>
+      <Menu.Item key="6" icon={<CopyOutlined />}>
+        克隆主机
+      </Menu.Item>
+      <Menu.Item key="7" icon={<NodeIndexOutlined />}>
+        加入网络
+      </Menu.Item>
+      <Menu.Item key="8" icon={<PrinterOutlined />}>
+        加载硬盘
+      </Menu.Item>
+      <Menu.Item key="9" icon={<KeyOutlined />}>
+        加载ssh 密钥
+      </Menu.Item>
+      <Menu.Item key="10" icon={<ThunderboltOutlined />}>
+        加入安全组规则
+      </Menu.Item>
+      <Menu.Item key="11" icon={<PlusOutlined />}>
+        加入安置策略组
+      </Menu.Item>
+      <Menu.Item key="12" icon={<PlusOutlined />}>
+        加入隔离策略组
+      </Menu.Item>
+      <Menu.Item key="13" icon={<BellOutlined />}>
+        绑定指定警告策略
+      </Menu.Item>
+      <Menu.Item key="14" icon={<BellOutlined />}>
+        绑定事件警告策略
+      </Menu.Item>
+      <Menu.Item key="15" icon={<TagsOutlined />}>
+        绑定标签
+      </Menu.Item>
+      <Menu.Item key="16" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="17" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="18" icon={<IssuesCloseOutlined />}>
+        重置系统
+      </Menu.Item>
+      <Menu.Item key="19" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );
