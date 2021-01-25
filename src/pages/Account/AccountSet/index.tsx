@@ -6,6 +6,9 @@ import { Tabs, Button } from 'antd';
 import { Link } from 'umi';
 import { RedoOutlined } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import BasicInfo from './components/BasicInfo/index';
+import ChangePhoneNumber from './components/ChangePhoneNumber/index';
+import ChangeEmail from './components/ChangeEmail/index';
 
 // import MappingDrawer from './components/MappingDrawer';
 
@@ -32,7 +35,7 @@ const AccountSet: React.FC<{}> = (props) => {
           <Tabs
             tabBarGutter={5}
             tabBarExtraContent={operations}
-            defaultActiveKey="1"
+            activeKey={currentTabs}
             onChange={(key) => {
               setCurrentTabs(key);
             }}
@@ -49,7 +52,9 @@ const AccountSet: React.FC<{}> = (props) => {
           </Tabs>
         </div>
         <div className={styles.table_form}>
-          你离开始使用仅差一步：立即完成认证，即可享受相应数量的资源配额和测试费
+          {currentTabs === '1' && <BasicInfo />}
+          {currentTabs === '4' && <ChangePhoneNumber />}
+          {currentTabs === '5' && <ChangeEmail />}
         </div>
       </div>
     </PageContainer>

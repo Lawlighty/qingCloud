@@ -1,19 +1,16 @@
 import React, { useState, useRef } from 'react';
-import { Modal, Select, Button } from 'antd';
+import { Modal, Input, Button, Checkbox, Tooltip } from 'antd';
 import styles from './index.less';
+import { TabletOutlined } from '@ant-design/icons';
 import MoveTitle from '@/components/moveTitle/moveTitle';
 
-const { Option } = Select;
-const OnlineNumber: React.FC<{}> = (props) => {
+const SertForm: React.FC<{}> = (props) => {
   const { visible, onClose } = props;
   const [styleTop, setStyleTop] = useState<number>(100);
   const [styleLeft, setStyleLeft] = useState<number>(0);
   const [destroyOnClose, setDestroyOnClose] = useState<boolean>(true);
 
-  const [key, setKey] = useState(0);
-  const handleChange = (e) => {
-    setKey(e);
-  };
+  const [code, setCode] = useState('');
   return (
     <div className="dark_modal">
       <Modal
@@ -35,7 +32,7 @@ const OnlineNumber: React.FC<{}> = (props) => {
           <MoveTitle
             styleTop={100}
             styleLeft={0}
-            title="同时在线数量"
+            title="启用二次认证"
             setStyleTop={setStyleTop}
             setStyleLeft={setStyleLeft}
           />
@@ -43,33 +40,36 @@ const OnlineNumber: React.FC<{}> = (props) => {
         className={styles.cc}
       >
         <div className={styles.form}>
-          <div className="alert_blue margin_20_10 font_12">
-            您可以设置同时打开控制台的浏览器、终端最大数量。如果无须设置，请选择不启用。
+          <div className="alert_yellow margin_20_10 font_12">
+            <div>1. 启用二次认证，需要您的注册手机号能接收到短信，以获取验证码。</div>
+            <div>2. 启用后，请尽快绑定验证码到手机，登录时您将需要输入动态口令。</div>
           </div>
-          <div className="flex margin_b_20">
-            <div className={styles.label}>同时在线数</div>
+          <div className="flex margin_b_20 font_12">
+            <div className={styles.label}>
+              <div className={`dark_btn_small ${styles.cancel}`}>
+                <TabletOutlined className="margin_r_5" />
+                发送验证码
+              </div>
+            </div>
             <div className={styles.info}>
-              <Select style={{ width: 120, marginLeft: 20 }} value={key} onChange={handleChange}>
-                <Option value={0}>不启用</Option>
-                <Option value={1}>1</Option>
-                <Option value={2}>2</Option>
-                <Option value={3}>3</Option>
-                <Option value={4}>4</Option>
-                <Option value={5}>5</Option>
-                <Option value={6}>6</Option>
-                <Option value={7}>7</Option>
-                <Option value={8}>8</Option>
-                <Option value={9}>9</Option>
-                <Option value={10}>10</Option>
-              </Select>
+              <Input
+                value={code}
+                placeholder="四位手机验证码"
+                onChange={(e) => {
+                  setCode(e.target.value);
+                }}
+              />
             </div>
           </div>
+
           <div className={styles.footer}>
-            <Button type="primary">修改</Button>
+            <Button type="primary">提交</Button>
+
+            <div className={`dark_btn_small ${styles.cancel}`}>取消</div>
           </div>
         </div>
       </Modal>
     </div>
   );
 };
-export default OnlineNumber;
+export default SertForm;
