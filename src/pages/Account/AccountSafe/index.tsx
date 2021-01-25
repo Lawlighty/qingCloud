@@ -24,6 +24,9 @@ const AccountSafe: React.FC<{}> = (props) => {
   // tab
   const [currentTabs, setCurrentTabs] = useState<string>('1');
 
+  const changeTabs = (key) => {
+    setCurrentTabs(key);
+  };
   return (
     <PageContainer>
       <div className="bg_div_white font_12">
@@ -37,7 +40,7 @@ const AccountSafe: React.FC<{}> = (props) => {
           <Tabs
             tabBarGutter={5}
             tabBarExtraContent={operations}
-            defaultActiveKey="1"
+            activeKey={currentTabs}
             onChange={(key) => {
               setCurrentTabs(key);
             }}
@@ -52,7 +55,7 @@ const AccountSafe: React.FC<{}> = (props) => {
           </Tabs>
         </div>
         <div className={styles.table_form}>
-          {currentTabs === '1' && <SafeSet />}
+          {currentTabs === '1' && <SafeSet changeTabs={changeTabs} />}
           {currentTabs === '2' && <ChangePsw />}
           {currentTabs === '3' && <SecondSert />}
           {currentTabs === '4' && <LoginLog />}

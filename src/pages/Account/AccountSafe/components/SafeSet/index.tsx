@@ -7,6 +7,7 @@ import { LockOutlined } from '@ant-design/icons';
 
 // const operations = <Button>Extra Action</Button>;
 const SafeSet: React.FC<{}> = (props) => {
+  const { changeTabs } = props;
   // 登录密码
   const [loginPswStart, setLoginPswStart] = useState<boolean>(true);
   // 二次认证
@@ -40,7 +41,14 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div
+                  className="color_blue span_line cursor_p"
+                  onClick={() => {
+                    changeTabs('2');
+                  }}
+                >
+                  修改
+                </div>
               </div>
             )}
             {!loginPswStart && <div className="color_blue span_line cursor_p">启用</div>}
@@ -62,7 +70,16 @@ const SafeSet: React.FC<{}> = (props) => {
                 <div className="color_blue span_line cursor_p">修改</div>
               </div>
             )}
-            {!secCert && <div className="color_blue span_line cursor_p">启用</div>}
+            {!secCert && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  changeTabs('3');
+                }}
+              >
+                启用
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.table_item}>
