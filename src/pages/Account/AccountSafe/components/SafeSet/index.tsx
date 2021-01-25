@@ -4,6 +4,10 @@ import styles from './index.less';
 import { Divider } from 'antd';
 import { Link } from 'umi';
 import { LockOutlined } from '@ant-design/icons';
+import UpdatePswCycle from './components/UpdatePswCycle/index';
+import OnlineNumber from './components/OnlineNumber/index';
+import AccountLock from './components/AccountLock/index';
+import MessageInfo from '@/pages/components/MessageInfo/index';
 
 // const operations = <Button>Extra Action</Button>;
 const SafeSet: React.FC<{}> = (props) => {
@@ -14,16 +18,22 @@ const SafeSet: React.FC<{}> = (props) => {
   const [secCert, setSecCert] = useState<boolean>(false);
   // 周期更新密码
   const [updatePswCycle, setUpdatePswCycle] = useState<boolean>(false);
+  const [showUpdatePswCycle, setShowUpdatePswCycle] = useState<boolean>(false);
   // 登录失败通知
   const [loginFailNote, setLoginFailNote] = useState<boolean>(false);
+  const [showLoginFailNote, setShowLoginFailNote] = useState<boolean>(false);
   // 登录失败锁定
   const [loginFailLock, setLoginFailLock] = useState<boolean>(false);
+  const [showLoginFailLock, setShowLoginFailLock] = useState<boolean>(false);
   // 禁用会话保持
   const [disabledSessionKeep, setDisabledSessionKeep] = useState<boolean>(false);
+  const [showDisabledSessionKeep, setShowDisabledSessionKeep] = useState<boolean>(false);
   // 同时在线数量
-  const [onlieNum, setOnlieNum] = useState<boolean>(false);
+  const [onlieNum, setOnlieNum] = useState<boolean>(true);
+  const [showOnlieNum, setShowOnlieNum] = useState<boolean>(false);
   // 账户锁
   const [accountLock, setAccountLock] = useState<boolean>(false);
+  const [showAccountLock, setShowAccountLock] = useState<boolean>(false);
 
   return (
     <div>
@@ -98,7 +108,23 @@ const SafeSet: React.FC<{}> = (props) => {
                 <div className="color_blue span_line cursor_p">修改</div>
               </div>
             )}
-            {!updatePswCycle && <div className="color_blue span_line cursor_p">启用</div>}
+            {!updatePswCycle && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  console.log('setShowUpdatePswCycle');
+                  setShowUpdatePswCycle(true);
+                }}
+              >
+                启用
+              </div>
+            )}
+            <UpdatePswCycle
+              visible={showUpdatePswCycle}
+              onClose={() => {
+                setShowUpdatePswCycle(false);
+              }}
+            />
           </div>
         </div>
         <div className={styles.table_item}>
@@ -114,10 +140,26 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div className="color_blue span_line cursor_p">禁用</div>
               </div>
             )}
-            {!loginFailNote && <div className="color_blue span_line cursor_p">启用</div>}
+            {!loginFailNote && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  setShowLoginFailNote(true);
+                }}
+              >
+                启用
+              </div>
+            )}
+            <MessageInfo
+              children="如果启用该通知，当输入用户名密码失败3次时，将向您的注册手机号发送通知。确认要启用该功能？"
+              visible={showLoginFailNote}
+              onClose={() => {
+                setShowLoginFailNote(false);
+              }}
+            />
           </div>
         </div>
         <div className={styles.table_item}>
@@ -133,10 +175,26 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div className="color_blue span_line cursor_p">禁用</div>
               </div>
             )}
-            {!loginFailLock && <div className="color_blue span_line cursor_p">启用</div>}
+            {!loginFailLock && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  setShowLoginFailLock(true);
+                }}
+              >
+                启用
+              </div>
+            )}
+            <MessageInfo
+              children="如果启用该设置，同一来源的终端访问控制台失败达到 5 次，该来源将被锁定登录 24 小时。确认要启用吗？"
+              visible={showLoginFailLock}
+              onClose={() => {
+                setShowLoginFailLock(false);
+              }}
+            />
           </div>
         </div>
         <div className={styles.table_item}>
@@ -152,10 +210,41 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div className="color_blue span_line cursor_p">禁用</div>
               </div>
             )}
-            {!disabledSessionKeep && <div className="color_blue span_line cursor_p">启用</div>}
+            {!disabledSessionKeep && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  setShowDisabledSessionKeep(true);
+                }}
+              >
+                启用
+              </div>
+            )}
+            <MessageInfo
+              // children={SessionKeep}
+              visible={showDisabledSessionKeep}
+              onClose={() => {
+                setShowDisabledSessionKeep(false);
+              }}
+            >
+              <div>
+                <div>
+                  如果启用该选项，浏览器关闭之后，再次访问需要重新验证身份。确认启用该选项？
+                </div>
+                <div>请注意：</div>
+                <div>• 需要退出当前账号并重新登录，该改动才会生效。</div>
+                <div>
+                  • 如果您使用 Chrome 浏览器，需要取消“关闭 Google Chrome
+                  后继续运行后台应用”，并确保“启动时”的配置不是“从上次停下的地方继续”，该功能才能生效。
+                </div>
+                <div>
+                  • 如果您使用 Mac 系统，关闭浏览器后进程并没有结束，需要手动退出该浏览器才能生效。
+                </div>
+              </div>
+            </MessageInfo>
           </div>
         </div>
         <div className={styles.table_item}>
@@ -169,10 +258,23 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div
+                  className="color_blue span_line cursor_p"
+                  onClick={() => {
+                    setShowOnlieNum(true);
+                  }}
+                >
+                  修改
+                </div>
               </div>
             )}
             {!onlieNum && <div className="color_blue span_line cursor_p">启用</div>}
+            <OnlineNumber
+              visible={showOnlieNum}
+              onClose={() => {
+                setShowOnlieNum(false);
+              }}
+            />
           </div>
         </div>
         <div className={styles.table_item}>
@@ -186,10 +288,25 @@ const SafeSet: React.FC<{}> = (props) => {
                   已启用
                 </div>
                 <Divider type="vertical" />
-                <div className="color_blue span_line cursor_p">修改</div>
+                <div className="color_blue span_line cursor_p">禁用</div>
               </div>
             )}
-            {!accountLock && <div className="color_blue span_line cursor_p">启用</div>}
+            {!accountLock && (
+              <div
+                className="color_blue span_line cursor_p"
+                onClick={() => {
+                  setShowAccountLock(true);
+                }}
+              >
+                启用
+              </div>
+            )}
+            <AccountLock
+              visible={showAccountLock}
+              onClose={() => {
+                setShowAccountLock(false);
+              }}
+            />
           </div>
         </div>
       </div>

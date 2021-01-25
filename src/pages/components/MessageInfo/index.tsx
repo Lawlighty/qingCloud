@@ -1,22 +1,19 @@
-import React, { useState, useRef } from 'react';
-import { Modal, Input, Timeline } from 'antd';
+import React, { useState, useRef, useEffect } from 'react';
+import { Modal } from 'antd';
 import styles from './index.less';
 import MoveTitle from '@/components/moveTitle/moveTitle';
 
-const { Search } = Input;
-const OperationLog: React.FC<{}> = (props) => {
-  const { visible, onClose } = props;
+const MessageInfo: React.FC<{}> = (props) => {
+  const { children, visible, onClose } = props;
   const [styleTop, setStyleTop] = useState<number>(100);
   const [styleLeft, setStyleLeft] = useState<number>(0);
   const [destroyOnClose, setDestroyOnClose] = useState<boolean>(true);
 
-  const onSearch = (value) => console.log(value);
   return (
     <div className="dark_modal">
       <Modal
         getContainer={() => document.getElementsByClassName('dark_modal')[0]}
         maskClosable={false}
-        footer={null}
         bodyStyle={{ padding: 0 }}
         destroyOnClose={destroyOnClose}
         visible={visible}
@@ -26,13 +23,13 @@ const OperationLog: React.FC<{}> = (props) => {
         onOk={() => {}}
         style={{ left: styleLeft, top: styleTop, zIndex: 99 }}
         width={600}
-        okText="提交"
+        okText="确认"
         cancelText="取消"
         title={
           <MoveTitle
             styleTop={100}
             styleLeft={0}
-            title="操作日志"
+            title="提示"
             setStyleTop={setStyleTop}
             setStyleLeft={setStyleLeft}
           />
@@ -40,20 +37,10 @@ const OperationLog: React.FC<{}> = (props) => {
         className={styles.cc}
       >
         <div className={styles.form}>
-          <div className={styles.title}>
-            <Search placeholder="相关资源ID" onSearch={onSearch} style={{ width: 200 }} />
-          </div>
-          <div className={styles.log}>
-            <Timeline>
-              <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-              <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-              <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-              <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
-            </Timeline>
-          </div>
+          <div className="alert_blue margin_20_10 font_12">{children}</div>
         </div>
       </Modal>
     </div>
   );
 };
-export default OperationLog;
+export default MessageInfo;
