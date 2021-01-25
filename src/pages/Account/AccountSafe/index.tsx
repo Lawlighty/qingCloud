@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
 import styles from './index.less';
-import { Tabs, Button } from 'antd';
+import { Tabs, Divider } from 'antd';
 import { Link } from 'umi';
-import { RedoOutlined } from '@ant-design/icons';
+import { LockOutlined } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import SafeSet from './components/SafeSet/index';
+import ChangePsw from './components/ChangePsw/index';
+import SecondSert from './components/SecondSert/index';
+import LoginLog from './components/LoginLog/index';
 
 // import MappingDrawer from './components/MappingDrawer';
 
@@ -48,7 +52,10 @@ const AccountSafe: React.FC<{}> = (props) => {
           </Tabs>
         </div>
         <div className={styles.table_form}>
-          你离开始使用仅差一步：立即完成认证，即可享受相应数量的资源配额和测试费
+          {currentTabs === '1' && <SafeSet />}
+          {currentTabs === '2' && <ChangePsw />}
+          {currentTabs === '3' && <SecondSert />}
+          {currentTabs === '4' && <LoginLog />}
         </div>
       </div>
     </PageContainer>
