@@ -13,20 +13,26 @@ import {
   Input,
   Tooltip,
   Spin,
+  Badge,
 } from 'antd';
 import { Link } from 'umi';
 import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
+  EditOutlined,
   AppstoreFilled,
-  EyeFilled,
-  DatabaseFilled,
-  FundFilled,
-  ControlFilled,
+  LaptopOutlined,
+  DeleteOutlined,
+  CameraOutlined,
+  BellOutlined,
+  TagsOutlined,
+  ImportOutlined,
+  RotateLeftOutlined,
+  CopyOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import CreateDisk from './components/CreateDisk/index';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -39,8 +45,7 @@ const Harddisk: React.FC<{}> = (props) => {
   };
   // tab
   const [currentTabs, setCurrentTabs] = useState<string>('1');
-  // view
-  const [currentView, setCurrentView] = useState<string>('1');
+  const [showBuid, setShowBuild] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState([
     {
@@ -60,7 +65,7 @@ const Harddisk: React.FC<{}> = (props) => {
       id: 'arch201310x64b',
       name: '硬盘2',
       area: 'shanghai',
-      state: 'usable',
+      state: 'delete',
       drive: 'c',
       cap: '22',
       type: '类型1',
@@ -142,6 +147,13 @@ const Harddisk: React.FC<{}> = (props) => {
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id.length - b.id.length,
+      render: (text) => {
+        return (
+          <Link to={`/storage/harddisk/${text}`} className="span_line cursor_p color_blue">
+            {text}
+          </Link>
+        );
+      },
     },
     {
       title: '名称',
@@ -172,6 +184,32 @@ const Harddisk: React.FC<{}> = (props) => {
         { text: '已删除', value: 'delete' },
       ],
       onFilter: (value, record) => record.state.indexOf(value) === 0,
+      render: (text) => {
+        return (
+          <div>
+            {text === 'usable' && (
+              <div className="succes_processing">
+                <Badge status="processing" text="可用" />
+              </div>
+            )}
+            {text === 'unusable' && (
+              <div className="succes_default">
+                <Badge status="default" text="已弃用" />
+              </div>
+            )}
+            {text === 'stop' && (
+              <div className="succes_warning">
+                <Badge status="warning" text="已暂停" />
+              </div>
+            )}
+            {text === 'delete' && (
+              <div className="succes_err">
+                <Badge status="error" text="已删除" />
+              </div>
+            )}
+          </div>
+        );
+      },
     },
     {
       title: '资源/盘符',
@@ -212,15 +250,36 @@ const Harddisk: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<EditOutlined />}>
+        修改
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<LaptopOutlined />}>
+        加载硬盘到主机
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<DeleteOutlined />}>
+        卸载硬盘
+      </Menu.Item>
+      <Menu.Item key="7" icon={<CameraOutlined />}>
+        创建备份
+      </Menu.Item>
+      <Menu.Item key="14" icon={<BellOutlined />}>
+        绑定事件警告策略
+      </Menu.Item>
+      <Menu.Item key="15" icon={<TagsOutlined />}>
+        绑定标签
+      </Menu.Item>
+      <Menu.Item key="16" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="17" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="6" icon={<CopyOutlined />}>
+        克隆硬盘
+      </Menu.Item>
+      <Menu.Item key="19" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );
@@ -261,11 +320,23 @@ const Harddisk: React.FC<{}> = (props) => {
               >
                 <RedoOutlined />
               </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+              <Button
+                type="primary"
+                className={styles.height_36}
+                style={{ marginRight: 4 }}
+                onClick={() => {
+                  setShowBuild(true);
+                }}
+              >
                 <PlusOutlined />
                 创建
               </Button>
-
+              <CreateDisk
+                visible={showBuid}
+                onClose={() => {
+                  setShowBuild(false);
+                }}
+              />
               <div>
                 <Dropdown overlay={menu} trigger={['click']}>
                   <Button className={`${styles.mybtn} ${styles.height_36}`}>

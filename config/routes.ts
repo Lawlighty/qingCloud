@@ -130,6 +130,13 @@
                     component: './Storage/Harddisk',
                   },
                   {
+                    path: '/storage/harddisk/:page',
+                    // name: 'sub-page',
+                    hideInMenu: true,
+                    name: '硬盘详情',
+                    component: './Storage/Harddisk/HarddiskDetail',
+                  },
+                  {
                     path: '/storage/objstorage',
                     // name: 'sub-page',
                     name: '对象存储',
