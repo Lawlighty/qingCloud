@@ -19,12 +19,14 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import CreateSsh from './components/CreateSsh/index';
 
 const { Search } = Input;
 
 // const operations = <Button>Extra Action</Button>;
 const SshKeys: React.FC<{}> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [showCreate, setShowCreate] = useState<boolean>(false);
   const [data, setData] = useState([
     {
       id: 'arch201310x64a',
@@ -172,6 +174,13 @@ const SshKeys: React.FC<{}> = (props) => {
             QingCloud 是不保存您的私钥的。
           </div>
         </NotificTips>
+        {/* 创建SSH密钥 */}
+        <CreateSsh
+          visible={showCreate}
+          onClose={() => {
+            setShowCreate(false);
+          }}
+        />
         <div className={styles.table_form}>
           <div className={styles.table_fun}>
             <div className="flex flex_1">
@@ -183,7 +192,14 @@ const SshKeys: React.FC<{}> = (props) => {
               >
                 <RedoOutlined />
               </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+              <Button
+                type="primary"
+                className={styles.height_36}
+                style={{ marginRight: 4 }}
+                onClick={() => {
+                  setShowCreate(true);
+                }}
+              >
                 <PlusOutlined />
                 创建
               </Button>
