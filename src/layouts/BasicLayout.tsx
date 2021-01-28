@@ -130,15 +130,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   return (
     <ProLayout
-      // logo={logo}
-      logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
-      // logo={logo2}
-      // 国际化
-      formatMessage={formatMessage}
-      {...props}
-      {...settings}
-      onCollapse={handleMenuCollapse}
-      onMenuHeaderClick={() => history.push('/')}
+      logo={<div />}
+      // logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
+      // location={{
+      //   pathname: '/home',
+      // }}
+      collapsedButtonRender={false}
+      collapsed
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl || !menuItemProps.path) {
           return defaultDom;
@@ -160,18 +158,135 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={() => defaultFooterDom}
-      menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {
         menuDataRef.current = menuData || [];
         return menuData || [];
       }}
+      iconfontUrl="//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"
+      route={{
+        routes: [
+          {
+            path: '/welcome',
+            name: '欢迎',
+            icon: 'smile',
+          },
+          {
+            path: '/overview',
+            name: '总览',
+            icon: 'icon-facebook',
+          },
+          {
+            path: '/calculate',
+            name: '计算',
+            icon: 'icon-twitter',
+          },
+          {
+            path: '/storage',
+            name: '存储',
+            icon: 'icon-twitter',
+          },
+          {
+            path: '/database',
+            name: '数据库与缓存',
+            icon: 'icon-twitter',
+          },
+          {
+            path: '/messagemiddleware',
+            name: '消息列队与中间件',
+            icon: 'icon-twitter',
+          },
+        ],
+      }}
+      headerRender={false}
+      disableContentMargin
     >
-      <Authorized authority={authorized!.authority} noMatch={noMatch}>
-        {children}
-      </Authorized>
+      <ProLayout
+        logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
+        // logo={<div />}
+        // 国际化
+        formatMessage={formatMessage}
+        {...props}
+        {...settings}
+        onCollapse={handleMenuCollapse}
+        onMenuHeaderClick={() => history.push('/')}
+        menuItemRender={(menuItemProps, defaultDom) => {
+          if (menuItemProps.isUrl || !menuItemProps.path) {
+            return defaultDom;
+          }
+          return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+        }}
+        breadcrumbRender={(routers = []) => [
+          {
+            path: '/',
+            breadcrumbName: formatMessage({ id: 'menu.home' }),
+          },
+          ...routers,
+        ]}
+        itemRender={(route, params, routes, paths) => {
+          const first = routes.indexOf(route) === 0;
+          return first ? (
+            <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+          ) : (
+            <span>{route.breadcrumbName}</span>
+          );
+        }}
+        footerRender={() => defaultFooterDom}
+        menuDataRender={menuDataRender}
+        rightContentRender={() => <RightContent />}
+        postMenuData={(menuData) => {
+          menuDataRef.current = menuData || [];
+          return menuData || [];
+        }}
+      >
+        <Authorized authority={authorized!.authority} noMatch={noMatch}>
+          {children}
+        </Authorized>
+      </ProLayout>
     </ProLayout>
+
+    /* <ProLayout
+  // logo={logo}
+  logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
+  // logo={logo2}
+  // 国际化
+  formatMessage={formatMessage}
+  {...props}
+  {...settings}
+  onCollapse={handleMenuCollapse}
+  onMenuHeaderClick={() => history.push('/')}
+  menuItemRender={(menuItemProps, defaultDom) => {
+    if (menuItemProps.isUrl || !menuItemProps.path) {
+      return defaultDom;
+    }
+    return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+  }}
+  breadcrumbRender={(routers = []) => [
+    {
+      path: '/',
+      breadcrumbName: formatMessage({ id: 'menu.home' }),
+    },
+    ...routers,
+  ]}
+  itemRender={(route, params, routes, paths) => {
+    const first = routes.indexOf(route) === 0;
+    return first ? (
+      <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+    ) : (
+      <span>{route.breadcrumbName}</span>
+    );
+  }}
+  footerRender={() => defaultFooterDom}
+  menuDataRender={menuDataRender}
+  rightContentRender={() => <RightContent />}
+  postMenuData={(menuData) => {
+    menuDataRef.current = menuData || [];
+    return menuData || [];
+  }}
+>
+  <Authorized authority={authorized!.authority} noMatch={noMatch}>
+    {children}
+  </Authorized>
+</ProLayout>; */
   );
 };
 
