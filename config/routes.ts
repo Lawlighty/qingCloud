@@ -36,6 +36,7 @@
                 path: '/welcome',
                 // name: 'welcome',
                 name: '欢迎',
+                hideInMenu: true,
                 icon: 'smile',
                 component: './Welcome',
               },
@@ -43,6 +44,7 @@
                 path: '/overview',
                 // name: 'welcome',
                 name: '总览',
+                hideInMenu: true,
                 icon: 'dashboard',
                 component: './overview',
               },
@@ -69,10 +71,15 @@
               },
               {
                 path: '/calculate',
+                // redirect: '/calculate/hosts',
                 // name: 'admin',
                 name: '计算',
                 icon: 'calculator',
                 routes: [
+                  {
+                    path: '/calculate',
+                    redirect: '/calculate/hosts',
+                  },
                   {
                     path: '/calculate/hosts',
                     // name: 'sub-page',
@@ -122,7 +129,12 @@
                 // name: 'admin',
                 name: '存储',
                 icon: 'dropbox',
+
                 routes: [
+                  {
+                    path: '/storage',
+                    redirect: '/storage/harddisk',
+                  },
                   {
                     path: '/storage/harddisk',
                     // name: 'sub-page',
@@ -203,6 +215,10 @@
                 icon: 'wifi',
 
                 routes: [
+                  {
+                    path: '/messagemiddleware',
+                    redirect: '/messagemiddleware/RabbitMq',
+                  },
                   {
                     path: '/messagemiddleware/RabbitMq',
                     // name: 'sub-page',

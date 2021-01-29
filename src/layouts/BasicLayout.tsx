@@ -11,7 +11,15 @@ import ProLayout, {
 } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Link, useIntl, connect, Dispatch, history } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
+import {
+  GithubOutlined,
+  SmileOutlined,
+  HeartOutlined,
+  DashboardOutlined,
+  CalculatorOutlined,
+  DropboxOutlined,
+  WifiOutlined,
+} from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
@@ -20,6 +28,59 @@ import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
 import logo2 from '../assets/geek.png';
 
+const IconMap = {
+  smile: <SmileOutlined />,
+  heart: <HeartOutlined />,
+  dashboard: <DashboardOutlined />,
+  calculator: <CalculatorOutlined />,
+  dropbox: <DropboxOutlined />,
+  wifi: <WifiOutlined />,
+};
+
+const defaultMenus = [
+  {
+    path: '/welcome',
+    name: '欢迎',
+    icon: 'smile',
+  },
+  {
+    path: '/overview',
+    name: '总览',
+    icon: 'dashboard',
+  },
+  {
+    path: '/calculate',
+    name: '计算',
+    icon: 'calculator',
+    // routes: [
+    //   {
+    //     path: '/calculate/hosts',
+    //     name: '主机',
+    //   },
+    //   {
+    //     path: '/calculate/mapping',
+    //     // name: 'sub-page',
+    //     name: '映像',
+    //   },
+    // ],
+  },
+  {
+    path: '/storage',
+    name: '存储',
+    icon: 'dropbox',
+  },
+  {
+    path: '/messagemiddleware',
+    name: '消息列队与中间件',
+    icon: 'wifi',
+  },
+];
+const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+  menus.map(({ icon, children, ...item }) => ({
+    ...item,
+    icon: icon && IconMap[icon as string],
+    children: children && loopMenuItem(children),
+  }));
 const noMatch = (
   <Result
     status={403}
@@ -53,6 +114,7 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
+    console.log('menuDataRender', item);
     const localItem = {
       ...item,
       children: item.children ? menuDataRender(item.children) : undefined,
@@ -130,7 +192,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   return (
     <ProLayout
-      logo={<div />}
+      className="aaamy"
+      logo={<div style={{ background: '#000000' }} />}
       // logo="https://console.qingcloud.com/static/images/logo.svg?v=1"
       // location={{
       //   pathname: '/home',
@@ -138,6 +201,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       collapsedButtonRender={false}
       collapsed
       menuItemRender={(menuItemProps, defaultDom) => {
+        console.log('外侧 menuItemRender', menuItemProps);
+        console.log('外侧 defaultDom', defaultDom);
+
         if (menuItemProps.isUrl || !menuItemProps.path) {
           return defaultDom;
         }
@@ -163,40 +229,42 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return menuData || [];
       }}
       iconfontUrl="//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js"
-      route={{
-        routes: [
-          {
-            path: '/welcome',
-            name: '欢迎',
-            icon: 'smile',
-          },
-          {
-            path: '/overview',
-            name: '总览',
-            icon: 'icon-facebook',
-          },
-          {
-            path: '/calculate',
-            name: '计算',
-            icon: 'icon-twitter',
-          },
-          {
-            path: '/storage',
-            name: '存储',
-            icon: 'icon-twitter',
-          },
-          {
-            path: '/database',
-            name: '数据库与缓存',
-            icon: 'icon-twitter',
-          },
-          {
-            path: '/messagemiddleware',
-            name: '消息列队与中间件',
-            icon: 'icon-twitter',
-          },
-        ],
-      }}
+      menuDataRender={() => loopMenuItem(defaultMenus)}
+      // menuDataRender={menuDataRender}
+      // route={{
+      //   routes: [
+      //     {
+      //       path: '/welcome',
+      //       name: '欢迎',
+      //       icon: 'smile',
+      //     },
+      //     {
+      //       path: '/overview',
+      //       name: '总览',
+      //       icon: 'icon-facebook',
+      //     },
+      //     {
+      //       path: '/calculate',
+      //       name: '计算',
+      //       icon: 'icon-twitter',
+      //     },
+      //     {
+      //       path: '/storage',
+      //       name: '存储',
+      //       icon: 'icon-twitter',
+      //     },
+      //     {
+      //       path: '/database',
+      //       name: '数据库与缓存',
+      //       icon: 'icon-twitter',
+      //     },
+      //     {
+      //       path: '/messagemiddleware',
+      //       name: '消息列队与中间件',
+      //       icon: 'icon-twitter',
+      //     },
+      //   ],
+      // }}
       headerRender={false}
       disableContentMargin
     >
