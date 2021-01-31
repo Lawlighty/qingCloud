@@ -27,6 +27,7 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -208,78 +209,80 @@ const Vnas: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
+    <KeepAlive name="/storage/vnas" path="文件存储vNAS" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              <b>NAS </b>是支持基于 NFS 和 Samba(CIFS) 协议的网络共享存储服务。你可以将硬盘挂载到
+              NAS 服务器上，让多个客户端通过网络连接进行共享，同时支持可访问服务的账号的控制管理。
+            </div>
+          </NotificTips>
           <div>
-            <b>NAS </b>是支持基于 NFS 和 Samba(CIFS) 协议的网络共享存储服务。你可以将硬盘挂载到 NAS
-            服务器上，让多个客户端通过网络连接进行共享，同时支持可访问服务的账号的控制管理。
+            <Tabs
+              tabBarGutter={5}
+              tabBarExtraContent={operations}
+              defaultActiveKey="1"
+              onChange={(key) => {
+                setCurrentTabs(key);
+              }}
+              type="card"
+              size="small"
+              className="notification_tab"
+            >
+              <TabPane tab="文件存储 vNAS" key="1" />
+              <TabPane tab="权限组" key="2" />
+              <TabPane tab="账户" key="3" />
+            </Tabs>
           </div>
-        </NotificTips>
-        <div>
-          <Tabs
-            tabBarGutter={5}
-            tabBarExtraContent={operations}
-            defaultActiveKey="1"
-            onChange={(key) => {
-              setCurrentTabs(key);
-            }}
-            type="card"
-            size="small"
-            className="notification_tab"
-          >
-            <TabPane tab="文件存储 vNAS" key="1" />
-            <TabPane tab="权限组" key="2" />
-            <TabPane tab="账户" key="3" />
-          </Tabs>
-        </div>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
-                <PlusOutlined />
-                创建
-              </Button>
-              <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                  <PlusOutlined />
+                  创建
+                </Button>
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
 
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Vnas);

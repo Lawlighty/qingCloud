@@ -25,6 +25,7 @@ import {
   KeyOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;
 
@@ -161,65 +162,68 @@ const RabbitMq: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          <div>
-            RabbitMQ 是一个在 AMQP 基础上完成的，可复用的企业消息系统。它遵循 Mozilla Public License
-            开源协议。 RabbitMQ on QingCloud 提供 RabbitMQ 集群服务，集成了 HAProxy+Keepalived，以
-            AppCenter 云应用的形式交付给用户使用。在青云上，您可以很方便的创建和管理一个 RabbitMQ
-            集群。集群支持横向与纵向在线伸缩，还提供了监控告警等功能，使得管理集群非常方便。支持基于
-            HAProxy+Keepalived 的高可用负载均衡。
-          </div>
-        </NotificTips>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
-                <PlusOutlined />
-                创建
-              </Button>
-
-              <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
-
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+    <KeepAlive name="/messagemiddleware/RabbitMq" path="RabbitMq" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              RabbitMQ 是一个在 AMQP 基础上完成的，可复用的企业消息系统。它遵循 Mozilla Public
+              License 开源协议。 RabbitMQ on QingCloud 提供 RabbitMQ 集群服务，集成了
+              HAProxy+Keepalived，以 AppCenter
+              云应用的形式交付给用户使用。在青云上，您可以很方便的创建和管理一个 RabbitMQ
+              集群。集群支持横向与纵向在线伸缩，还提供了监控告警等功能，使得管理集群非常方便。支持基于
+              HAProxy+Keepalived 的高可用负载均衡。
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
+          </NotificTips>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                  <PlusOutlined />
+                  创建
+                </Button>
+
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(RabbitMq);

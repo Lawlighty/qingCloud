@@ -17,6 +17,7 @@ import {
 import { Link } from 'umi';
 import { RedoOutlined, DeleteOutlined, UserOutlined } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;
 
@@ -156,57 +157,59 @@ const Equipment: React.FC<{}> = (props) => {
     },
   ];
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          <div>
-            一些使用场景中，用户需要将外接存储设备挂载到云主机上。设备需邮寄到数据中心，由管理员配置后在设备列表中可见。用户可以在列表操作中向云主机挂载、卸载设备，并可删除设备。
-          </div>
-        </NotificTips>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
+    <KeepAlive name="/calculate/equip" path="设备" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              一些使用场景中，用户需要将外接存储设备挂载到云主机上。设备需邮寄到数据中心，由管理员配置后在设备列表中可见。用户可以在列表操作中向云主机挂载、卸载设备，并可删除设备。
+            </div>
+          </NotificTips>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button
+                  danger
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  disabled={!selectedRowKeys.length}
+                >
+                  <DeleteOutlined />
+                  删除
+                </Button>
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
               </div>
-              <Button
-                danger
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                disabled={!selectedRowKeys.length}
-              >
-                <DeleteOutlined />
-                删除
-              </Button>
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Equipment);

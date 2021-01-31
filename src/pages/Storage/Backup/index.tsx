@@ -27,6 +27,7 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -208,74 +209,76 @@ const Backup: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
+    <KeepAlive name="/storage/backup" path="备份" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              <b>备份（Snapshot） </b>用于在块设备级别 (block device level)
+              上进行硬盘的备份与恢复，可以同时对多张硬盘做备份（包括系统盘和数据盘），也可以对正在运行的主机做在线备份。一张硬盘可以有多个备份链，每条备份链包括一个全量备份点以及多个增量备份点，您可以随时从任意一个备份点恢复数据。
+            </div>
+          </NotificTips>
           <div>
-            <b>备份（Snapshot） </b>用于在块设备级别 (block device level)
-            上进行硬盘的备份与恢复，可以同时对多张硬盘做备份（包括系统盘和数据盘），也可以对正在运行的主机做在线备份。一张硬盘可以有多个备份链，每条备份链包括一个全量备份点以及多个增量备份点，您可以随时从任意一个备份点恢复数据。
+            <Tabs
+              tabBarGutter={5}
+              tabBarExtraContent={operations}
+              defaultActiveKey="1"
+              onChange={(key) => {
+                setCurrentTabs(key);
+              }}
+              type="card"
+              size="small"
+              className="notification_tab"
+            >
+              <TabPane tab="自有" key="1" />
+              <TabPane tab="共享" key="2" />
+            </Tabs>
           </div>
-        </NotificTips>
-        <div>
-          <Tabs
-            tabBarGutter={5}
-            tabBarExtraContent={operations}
-            defaultActiveKey="1"
-            onChange={(key) => {
-              setCurrentTabs(key);
-            }}
-            type="card"
-            size="small"
-            className="notification_tab"
-          >
-            <TabPane tab="自有" key="1" />
-            <TabPane tab="共享" key="2" />
-          </Tabs>
-        </div>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
 
-              <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
 
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Backup);

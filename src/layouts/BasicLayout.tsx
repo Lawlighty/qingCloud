@@ -3,6 +3,8 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
+import KeepAliveTabs from '@/components/KeepAliveTabs';
+
 import ProLayout, {
   MenuDataItem,
   BasicLayoutProps as ProLayoutProps,
@@ -114,7 +116,6 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
-    console.log('menuDataRender', item);
     const localItem = {
       ...item,
       children: item.children ? menuDataRender(item.children) : undefined,
@@ -201,9 +202,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       collapsedButtonRender={false}
       collapsed
       menuItemRender={(menuItemProps, defaultDom) => {
-        console.log('外侧 menuItemRender', menuItemProps);
-        console.log('外侧 defaultDom', defaultDom);
-
         if (menuItemProps.isUrl || !menuItemProps.path) {
           return defaultDom;
         }
@@ -298,7 +296,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             <span>{route.breadcrumbName}</span>
           );
         }}
-        footerRender={() => defaultFooterDom}
+        // headerRender={<KeepAliveTabs />}
+        // headerRender={() => <KeepAliveTabs />}
+        // footerRender={() => defaultFooterDom}
         menuDataRender={menuDataRender}
         rightContentRender={() => <RightContent />}
         postMenuData={(menuData) => {
@@ -307,7 +307,12 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         }}
       >
         <Authorized authority={authorized!.authority} noMatch={noMatch}>
-          {children}
+          <div>
+            <KeepAliveTabs />
+            {children}
+            <div>{defaultFooterDom}</div>
+          </div>
+          {/* {children} */}
         </Authorized>
       </ProLayout>
     </ProLayout>

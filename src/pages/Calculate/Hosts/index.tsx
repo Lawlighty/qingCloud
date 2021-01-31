@@ -42,6 +42,7 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import AddHost from './components/AddHost/index';
+import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -275,147 +276,149 @@ const Hosts: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <AddHost visible={visible} onCancel={onCancel} subHost={subHost} />
-      {/* <TicksBuilder visible={visible} onCancel={onCancel} subTicks={subHost} /> */}
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          {currentTabs === '1' && (
-            <div>
-              QingCloud 为您提供一种随时获取的、弹性的计算能力，这种计算能力的体现就是
-              <b>主机（Instance）</b>
-              。主机就是一台配置好了的服务器，它有您期望的硬件配置、操作系统和网络配置。通常情况下，您的请求可以在10秒到60秒的时间之内
-              完成，所以您完全可以动态地、按需使用计算能力。
-            </div>
-          )}
-          {currentTabs === '2' && (
-            <div>
-              针对用户长期、稳定的 IT 需求，青云QingCloud
-              推出『预留资源』计费模式，目前此模式仅适用于主机、专属宿主机 (详情参看
-              <Link to="/notifications"> [专属宿主机]</Link>
-              )，和关系型数据库，相对于按需付费可享有更优惠价格。更多详情请查看
-              <Link to="/notifications">[预留合约指南]</Link>
-            </div>
-          )}
-          {currentTabs === '3' && (
-            <div>
-              安置策略组功能为用户提供了虚拟主机分组功能，用户可以通过创建合适关系的安置策略组并将部署的主机加入相应的分组，从而将一组主机实例按照分组关系部署到合适的物理节点上，来提高资源的可用性，业务的连续性。
-            </div>
-          )}
-        </NotificTips>
-        <div>
-          <Tabs
-            tabBarGutter={5}
-            tabBarExtraContent={operations}
-            defaultActiveKey="1"
-            onChange={(key) => {
-              setCurrentTabs(key);
-            }}
-            type="card"
-            size="small"
-            className="notification_tab"
-          >
-            <TabPane tab="主机" key="1" />
-            <TabPane tab="预留合约" key="2" />
-            <TabPane tab="安置策略组" key="3" />
-          </Tabs>
-        </div>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                onClick={() => {
-                  setVisible(true);
-                }}
-              >
-                <PlusOutlined />
-                创建
-              </Button>
+    <KeepAlive name="/calculate/hosts" path="主机" saveScrollPosition="screen">
+      <PageContainer>
+        <AddHost visible={visible} onCancel={onCancel} subHost={subHost} />
+        {/* <TicksBuilder visible={visible} onCancel={onCancel} subTicks={subHost} /> */}
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            {currentTabs === '1' && (
               <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
+                QingCloud 为您提供一种随时获取的、弹性的计算能力，这种计算能力的体现就是
+                <b>主机（Instance）</b>
+                。主机就是一台配置好了的服务器，它有您期望的硬件配置、操作系统和网络配置。通常情况下，您的请求可以在10秒到60秒的时间之内
+                完成，所以您完全可以动态地、按需使用计算能力。
               </div>
-              {/* <div className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36}`} >
+            )}
+            {currentTabs === '2' && (
+              <div>
+                针对用户长期、稳定的 IT 需求，青云QingCloud
+                推出『预留资源』计费模式，目前此模式仅适用于主机、专属宿主机 (详情参看
+                <Link to="/notifications"> [专属宿主机]</Link>
+                )，和关系型数据库，相对于按需付费可享有更优惠价格。更多详情请查看
+                <Link to="/notifications">[预留合约指南]</Link>
+              </div>
+            )}
+            {currentTabs === '3' && (
+              <div>
+                安置策略组功能为用户提供了虚拟主机分组功能，用户可以通过创建合适关系的安置策略组并将部署的主机加入相应的分组，从而将一组主机实例按照分组关系部署到合适的物理节点上，来提高资源的可用性，业务的连续性。
+              </div>
+            )}
+          </NotificTips>
+          <div>
+            <Tabs
+              tabBarGutter={5}
+              tabBarExtraContent={operations}
+              defaultActiveKey="1"
+              onChange={(key) => {
+                setCurrentTabs(key);
+              }}
+              type="card"
+              size="small"
+              className="notification_tab"
+            >
+              <TabPane tab="主机" key="1" />
+              <TabPane tab="预留合约" key="2" />
+              <TabPane tab="安置策略组" key="3" />
+            </Tabs>
+          </div>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    setVisible(true);
+                  }}
+                >
+                  <PlusOutlined />
+                  创建
+                </Button>
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+                {/* <div className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36}`} >
                 <EyeFilled />
               </div> */}
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+                <Tooltip title="详细视图">
+                  <div
+                    style={{ marginLeft: 10 }}
+                    className={`${styles.tool_div} ${
+                      currentView === '1' ? styles.tool_div_focus : null
+                    }`}
+                    onClick={() => {
+                      if (currentView !== '1') setCurrentView('1');
+                    }}
+                  >
+                    <DatabaseFilled />
+                    详细
+                  </div>
+                </Tooltip>
+                <Tooltip title="监控视图, 该视图下不支持部分操作">
+                  <div
+                    className={`${styles.tool_div} ${
+                      currentView === '2' ? styles.tool_div_focus : null
+                    }`}
+                    onClick={() => {
+                      if (currentView !== '2') setCurrentView('2');
+                    }}
+                  >
+                    <FundFilled />
+                    监控
+                  </div>
+                </Tooltip>
+                <Tooltip title="目录视图">
+                  <div
+                    className={`${styles.tool_div} ${
+                      currentView === '3' ? styles.tool_div_focus : null
+                    }`}
+                    onClick={() => {
+                      if (currentView !== '3') setCurrentView('3');
+                    }}
+                  >
+                    <ControlFilled />
+                    目录
+                  </div>
+                </Tooltip>
+              </div>
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-              <Tooltip title="详细视图">
-                <div
-                  style={{ marginLeft: 10 }}
-                  className={`${styles.tool_div} ${
-                    currentView === '1' ? styles.tool_div_focus : null
-                  }`}
-                  onClick={() => {
-                    if (currentView !== '1') setCurrentView('1');
-                  }}
-                >
-                  <DatabaseFilled />
-                  详细
-                </div>
-              </Tooltip>
-              <Tooltip title="监控视图, 该视图下不支持部分操作">
-                <div
-                  className={`${styles.tool_div} ${
-                    currentView === '2' ? styles.tool_div_focus : null
-                  }`}
-                  onClick={() => {
-                    if (currentView !== '2') setCurrentView('2');
-                  }}
-                >
-                  <FundFilled />
-                  监控
-                </div>
-              </Tooltip>
-              <Tooltip title="目录视图">
-                <div
-                  className={`${styles.tool_div} ${
-                    currentView === '3' ? styles.tool_div_focus : null
-                  }`}
-                  onClick={() => {
-                    if (currentView !== '3') setCurrentView('3');
-                  }}
-                >
-                  <ControlFilled />
-                  目录
-                </div>
-              </Tooltip>
-            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Hosts);

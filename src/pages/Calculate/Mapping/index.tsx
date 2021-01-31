@@ -19,6 +19,7 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import AddHost from '@/pages/Calculate/Hosts/components/AddHost/index';
+import { KeepAlive } from 'react-activation';
 // import MappingDrawer from './components/MappingDrawer';
 
 const { TabPane } = Tabs;
@@ -230,98 +231,100 @@ const Mapping: React.FC<{}> = (props) => {
   );
 
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
+    <KeepAlive name="/calculate/mapping" path="映像" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              <b>映像（Image）</b>
+              是带有操作系统的主机模板。用户可以基于已有映像创建主机，也可以将自有主机捕获为新映像，以备后用。
+            </div>
+          </NotificTips>
           <div>
-            <b>映像（Image）</b>
-            是带有操作系统的主机模板。用户可以基于已有映像创建主机，也可以将自有主机捕获为新映像，以备后用。
+            <Tabs
+              tabBarGutter={5}
+              tabBarExtraContent={operations}
+              defaultActiveKey="1"
+              onChange={(key) => {
+                setCurrentTabs(key);
+              }}
+              type="card"
+              size="small"
+              className="notification_tab"
+            >
+              <TabPane tab="系统" key="1" />
+              <TabPane tab="自有" key="2" />
+              <TabPane tab="共享" key="3" />
+              <TabPane tab="市场" key="4" />
+            </Tabs>
           </div>
-        </NotificTips>
-        <div>
-          <Tabs
-            tabBarGutter={5}
-            tabBarExtraContent={operations}
-            defaultActiveKey="1"
-            onChange={(key) => {
-              setCurrentTabs(key);
-            }}
-            type="card"
-            size="small"
-            className="notification_tab"
-          >
-            <TabPane tab="系统" key="1" />
-            <TabPane tab="自有" key="2" />
-            <TabPane tab="共享" key="3" />
-            <TabPane tab="市场" key="4" />
-          </Tabs>
-        </div>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                disabled={!selectedRowKeys.length}
-                onClick={() => {
-                  setVisibleHost(true);
-                }}
-              >
-                <PlusOutlined />
-                基于映像创建主机
-              </Button>
-              {(currentTabs === '2' || currentTabs === '3') && (
-                <div>
-                  <Dropdown overlay={menu} trigger={['click']}>
-                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                      <AppstoreFilled />
-                      更多操作 <DownOutlined />
-                    </Button>
-                  </Dropdown>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
                 </div>
-              )}
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  disabled={!selectedRowKeys.length}
+                  onClick={() => {
+                    setVisibleHost(true);
+                  }}
+                >
+                  <PlusOutlined />
+                  基于映像创建主机
+                </Button>
+                {(currentTabs === '2' || currentTabs === '3') && (
+                  <div>
+                    <Dropdown overlay={menu} trigger={['click']}>
+                      <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                        <AppstoreFilled />
+                        更多操作 <DownOutlined />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                )}
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
-          </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          {/* 抽屉 */}
-          {/* <MappingDrawer visible={visibleDriver} onClose={onCloseDrawer} /> */}
-          {/* 基于映像创建主机 */}
-          <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} />
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
-          {currentTabs === '1' && (
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            {/* 抽屉 */}
+            {/* <MappingDrawer visible={visibleDriver} onClose={onCloseDrawer} /> */}
+            {/* 基于映像创建主机 */}
+            <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} />
             <p className="tips">
-              * 如果 Windows 映像标明为“未激活”，请自行购买 Windows
-              授权，常规渠道有微软商店或者淘宝。
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
             </p>
-          )}
+            {currentTabs === '1' && (
+              <p className="tips">
+                * 如果 Windows 映像标明为“未激活”，请自行购买 Windows
+                授权，常规渠道有微软商店或者淘宝。
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Mapping);

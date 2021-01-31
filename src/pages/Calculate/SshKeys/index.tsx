@@ -20,6 +20,7 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import CreateSsh from './components/CreateSsh/index';
+import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;
 
@@ -165,95 +166,97 @@ const SshKeys: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          <div>
-            如果您使用的是 Linux 主机，强烈建议使用 <b> SSH 公钥/私钥 （Keypair）</b>
-            进行远程登录身份验证。您可以创建一个 SSH 密钥，并立刻下载其私钥。请保管好私钥，因为
-            QingCloud 是不保存您的私钥的。
-          </div>
-        </NotificTips>
-        {/* 创建SSH密钥 */}
-        <CreateSsh
-          visible={showCreate}
-          onClose={() => {
-            setShowCreate(false);
-          }}
-        />
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                onClick={() => {
-                  setShowCreate(true);
-                }}
-              >
-                <PlusOutlined />
-                创建
-              </Button>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                disabled={!selectedRowKeys.length}
-              >
-                <CopyOutlined />
-                复制
-              </Button>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                disabled={!selectedRowKeys.length}
-              >
-                <KeyOutlined />
-                加载到主机
-              </Button>
-
-              <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
-
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+    <KeepAlive name="/calculate/ssh" path="SSH 密钥" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              如果您使用的是 Linux 主机，强烈建议使用 <b> SSH 公钥/私钥 （Keypair）</b>
+              进行远程登录身份验证。您可以创建一个 SSH 密钥，并立刻下载其私钥。请保管好私钥，因为
+              QingCloud 是不保存您的私钥的。
             </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
+          </NotificTips>
+          {/* 创建SSH密钥 */}
+          <CreateSsh
+            visible={showCreate}
+            onClose={() => {
+              setShowCreate(false);
+            }}
+          />
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    setShowCreate(true);
+                  }}
+                >
+                  <PlusOutlined />
+                  创建
+                </Button>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  disabled={!selectedRowKeys.length}
+                >
+                  <CopyOutlined />
+                  复制
+                </Button>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  disabled={!selectedRowKeys.length}
+                >
+                  <KeyOutlined />
+                  加载到主机
+                </Button>
+
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
             </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(SshKeys);

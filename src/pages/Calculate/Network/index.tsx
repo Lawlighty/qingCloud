@@ -21,6 +21,7 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import AskNetwork from './components/AskNetwork/index';
+import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;
 
@@ -215,74 +216,76 @@ const Network: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          <div>
-            <b>网卡（Nic）</b> 是一种虚拟网卡，可以分配到主机，一个主机最多可以绑定 64
-            张网卡（其中主网卡 1 张，从网卡 63 张），一个网络最多可以有 252 张网卡。
-          </div>
-        </NotificTips>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
+    <KeepAlive name="/calculate/network" path="网卡" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            <div>
+              <b>网卡（Nic）</b> 是一种虚拟网卡，可以分配到主机，一个主机最多可以绑定 64
+              张网卡（其中主网卡 1 张，从网卡 63 张），一个网络最多可以有 252 张网卡。
+            </div>
+          </NotificTips>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    setAskVisible(true);
+                  }}
+                >
+                  <PlusOutlined />
+                  申请
+                </Button>
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+                <Search
+                  placeholder=""
+                  placeholder="名称/mac地址/内网"
+                  onSearch={onSearch}
+                  style={{ width: 200 }}
+                />
               </div>
-              <Button
-                type="primary"
-                className={styles.height_36}
-                style={{ marginRight: 4 }}
-                onClick={() => {
-                  setAskVisible(true);
-                }}
-              >
-                <PlusOutlined />
-                申请
-              </Button>
-              <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
               </div>
-              <Search
-                placeholder=""
-                placeholder="名称/mac地址/内网"
-                onSearch={onSearch}
-                style={{ width: 200 }}
+            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.mac}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
               />
-            </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.mac}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
+          {/* 申请网卡 */}
+          <AskNetwork visible={askVisible} onClose={onCancel} />
         </div>
-        {/* 申请网卡 */}
-        <AskNetwork visible={askVisible} onClose={onCancel} />
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Network);

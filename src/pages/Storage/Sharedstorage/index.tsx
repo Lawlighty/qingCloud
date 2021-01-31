@@ -27,6 +27,7 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -208,89 +209,91 @@ const Sharedstorage: React.FC<{}> = (props) => {
     </Menu>
   );
   return (
-    <PageContainer>
-      <div className="bg_div_white font_12">
-        <NotificTips>
-          {currentTabs === '1' && (
-            <div>
-              <b>企业级分布式 SAN (NeonSAN) </b>是基于全闪存架构提供的分布式 SAN 服务，适用于对
-              IOPS、吞吐、容量和稳定性要求很高的业务，例如：企业核心数据库 Oracle RAC 及 SQL Server
-              故障转移集群等、企业级分布式数据库
-              RadonDB、物理主机高可用架构、大数据分析与计算、以及搭建高可用容器集群等。
-            </div>
-          )}
-          {currentTabs === '2' && (
-            <div>
-              你可以在 QingCloud 上快速搭建基于 iSCSI 的 <b>Virtual SAN</b>
-              服务，在你的应用系统之间共享数据。注意，如果将一块硬盘通过 Virtual SAN
-              服务挂载到多台主机上，那么必须通过共享型文件系统（Shared File
-              System）的支持才可以并行读写。
-            </div>
-          )}
-        </NotificTips>
-        <div>
-          <Tabs
-            tabBarGutter={5}
-            tabBarExtraContent={operations}
-            defaultActiveKey="1"
-            onChange={(key) => {
-              setCurrentTabs(key);
-            }}
-            type="card"
-            size="small"
-            className="notification_tab"
-          >
-            <TabPane tab="企业级分布式 SAN (NeonSAN)" key="1" />
-            <TabPane tab="vSAN" key="2" />
-          </Tabs>
-        </div>
-        <div className={styles.table_form}>
-          <div className={styles.table_fun}>
-            <div className="flex flex_1">
-              <div
-                className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
-                  loading ? 'mydisabled' : ''
-                }`}
-                onClick={toRefush}
-              >
-                <RedoOutlined />
-              </div>
-              <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
-                <PlusOutlined />
-                创建
-              </Button>
+    <KeepAlive name="/storage/sharedstorage" path="共享存储" saveScrollPosition="screen">
+      <PageContainer>
+        <div className="bg_div_white font_12">
+          <NotificTips>
+            {currentTabs === '1' && (
               <div>
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <Button className={`${styles.mybtn} ${styles.height_36}`}>
-                    <AppstoreFilled />
-                    更多操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
+                <b>企业级分布式 SAN (NeonSAN) </b>是基于全闪存架构提供的分布式 SAN 服务，适用于对
+                IOPS、吞吐、容量和稳定性要求很高的业务，例如：企业核心数据库 Oracle RAC 及 SQL
+                Server 故障转移集群等、企业级分布式数据库
+                RadonDB、物理主机高可用架构、大数据分析与计算、以及搭建高可用容器集群等。
               </div>
-
-              <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
-            </div>
-            <div className="flex">
-              <div className={styles.pagination}>合计:0</div>
-            </div>
+            )}
+            {currentTabs === '2' && (
+              <div>
+                你可以在 QingCloud 上快速搭建基于 iSCSI 的 <b>Virtual SAN</b>
+                服务，在你的应用系统之间共享数据。注意，如果将一块硬盘通过 Virtual SAN
+                服务挂载到多台主机上，那么必须通过共享型文件系统（Shared File
+                System）的支持才可以并行读写。
+              </div>
+            )}
+          </NotificTips>
+          <div>
+            <Tabs
+              tabBarGutter={5}
+              tabBarExtraContent={operations}
+              defaultActiveKey="1"
+              onChange={(key) => {
+                setCurrentTabs(key);
+              }}
+              type="card"
+              size="small"
+              className="notification_tab"
+            >
+              <TabPane tab="企业级分布式 SAN (NeonSAN)" key="1" />
+              <TabPane tab="vSAN" key="2" />
+            </Tabs>
           </div>
-          <Spin tip="数据加载中..." spinning={loading}>
-            <Table
-              columns={columns}
-              rowSelection={rowSelection}
-              rowKey={(record) => record.id}
-              dataSource={data}
-              pagination={pagination}
-              loading={loading}
-              onChange={handleTableChange}
-            />
-          </Spin>
-          <p className="tips">
-            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-          </p>
+          <div className={styles.table_form}>
+            <div className={styles.table_fun}>
+              <div className="flex flex_1">
+                <div
+                  className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+                    loading ? 'mydisabled' : ''
+                  }`}
+                  onClick={toRefush}
+                >
+                  <RedoOutlined />
+                </div>
+                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                  <PlusOutlined />
+                  创建
+                </Button>
+                <div>
+                  <Dropdown overlay={menu} trigger={['click']}>
+                    <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                      <AppstoreFilled />
+                      更多操作 <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+
+                <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
+              </div>
+              <div className="flex">
+                <div className={styles.pagination}>合计:0</div>
+              </div>
+            </div>
+            <Spin tip="数据加载中..." spinning={loading}>
+              <Table
+                columns={columns}
+                rowSelection={rowSelection}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Spin>
+            <p className="tips">
+              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+            </p>
+          </div>
         </div>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </KeepAlive>
   );
 };
 export default connect(() => ({}))(Sharedstorage);
