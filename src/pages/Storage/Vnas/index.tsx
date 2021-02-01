@@ -19,12 +19,14 @@ import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
+  CaretRightOutlined,
   AppstoreFilled,
-  EyeFilled,
-  DatabaseFilled,
-  FundFilled,
-  ControlFilled,
+  CloseSquareOutlined,
+  EditOutlined,
+  TagsOutlined,
+  ImportOutlined,
+  RotateLeftOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import CreateResource from '../components/CreateResource/index';
@@ -198,15 +200,46 @@ const Vnas: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<CaretRightOutlined />}>
+        启动
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<CloseSquareOutlined />}>
+        关闭
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<EditOutlined />}>
+        修改
+      </Menu.Item>
+      <Menu.Item key="4" icon={<TagsOutlined />}>
+        绑定标签
+      </Menu.Item>
+      <Menu.Item key="5" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="6" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="7" icon={<DeleteOutlined />}>
+        删除
+      </Menu.Item>
+    </Menu>
+  );
+  const menu1 = (
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<EditOutlined />}>
+        修改
+      </Menu.Item>
+      <Menu.Item key="2" icon={<TagsOutlined />}>
+        绑定账户
+      </Menu.Item>
+      <Menu.Item key="3" icon={<ImportOutlined />}>
+        添加到项目
+      </Menu.Item>
+      <Menu.Item key="4" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+      <Menu.Item key="5" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );
@@ -267,7 +300,7 @@ const Vnas: React.FC<{}> = (props) => {
                 </Button>
 
                 <div>
-                  <Dropdown overlay={menu} trigger={['click']}>
+                  <Dropdown overlay={currentTabs === '1' ? menu : menu1} trigger={['click']}>
                     <Button className={`${styles.mybtn} ${styles.height_36}`}>
                       <AppstoreFilled />
                       更多操作 <DownOutlined />

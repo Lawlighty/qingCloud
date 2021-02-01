@@ -204,7 +204,16 @@ const Backup: React.FC<{}> = (props) => {
       <Menu.Item key="3" icon={<RotateLeftOutlined />}>
         从项目中移除
       </Menu.Item>
-
+      <Menu.Item key="4" icon={<DeleteOutlined />}>
+        删除
+      </Menu.Item>
+    </Menu>
+  );
+  const menu1 = (
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<TagsOutlined />}>
+        绑定标签
+      </Menu.Item>
       <Menu.Item key="4" icon={<DeleteOutlined />}>
         删除
       </Menu.Item>
@@ -249,7 +258,7 @@ const Backup: React.FC<{}> = (props) => {
                 </div>
 
                 <div>
-                  <Dropdown overlay={menu} trigger={['click']}>
+                  <Dropdown overlay={currentTabs === '1' ? menu : menu1} trigger={['click']}>
                     <Button className={`${styles.mybtn} ${styles.height_36}`}>
                       <AppstoreFilled />
                       更多操作 <DownOutlined />

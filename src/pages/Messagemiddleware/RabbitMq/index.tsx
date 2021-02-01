@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
+import { history, Reducer, Effect } from 'umi';
 import styles from './index.less';
 import {
   Tabs,
@@ -190,7 +191,15 @@ const RabbitMq: React.FC<{}> = (props) => {
                 >
                   <RedoOutlined />
                 </div>
-                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    // router.push('/Messagemiddleware/RabbitMq/components/CreateRabbitMq');
+                    history.push('/Messagemiddleware/RabbitMq/CreateRabbitMq');
+                  }}
+                >
                   <PlusOutlined />
                   创建
                 </Button>

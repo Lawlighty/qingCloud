@@ -68,7 +68,7 @@ const CreateResource: React.FC<{}> = (props) => {
           </div>
           <div className={styles.footer}>
             <Button type="primary">下一步</Button>
-            <div className="dark_btn" style={{ padding: '5px 16px', marginLeft: 10 }}>
+            <div className="dark_btn" style={{ marginLeft: 10 }}>
               取消
             </div>
           </div>

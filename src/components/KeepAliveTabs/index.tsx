@@ -13,16 +13,12 @@ export default function KeepAliveTabs() {
   const cachingNodes = getCachingNodes();
   const closable = cachingNodes.length > 1;
 
-  console.log('cachingNodes', cachingNodes);
-
   const onChange = (node) => {
-    console.log('node.name', node);
     history.push(node);
   };
 
   const dropTab = (e) => {
     e.stopPropagation();
-    console.log('dropTab');
     const currentName = location.pathname;
     const unlisten = history.listen(() => {
       setTimeout(() => {
@@ -31,7 +27,6 @@ export default function KeepAliveTabs() {
     });
 
     // 前往排除当前 node 后的最后一个 tab
-    console.log('cachingNodes', cachingNodes);
     history.push(cachingNodes.filter((node) => node.name !== currentName).pop().name);
   };
   const dropTabOthers = (e) => {
