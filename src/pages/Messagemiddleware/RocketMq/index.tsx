@@ -19,10 +19,11 @@ import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
+  CaretRightOutlined,
   AppstoreFilled,
-  CopyOutlined,
-  KeyOutlined,
+  IssuesCloseOutlined,
+  DeleteOutlined,
+  CloseSquareOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import { KeepAlive } from 'react-activation';
@@ -149,15 +150,18 @@ const RocketMq: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" disabled icon={<CaretRightOutlined />}>
+        启动
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<CloseSquareOutlined />}>
+        关闭
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<IssuesCloseOutlined />}>
+        重启
+      </Menu.Item>
+      <Menu.Item key="4" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );

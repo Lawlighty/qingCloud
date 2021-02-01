@@ -17,14 +17,12 @@ import {
 import { Link } from 'umi';
 import {
   RedoOutlined,
-  PlusOutlined,
+  TagsOutlined,
   DownOutlined,
-  UserOutlined,
+  ImportOutlined,
   AppstoreFilled,
-  EyeFilled,
-  DatabaseFilled,
-  FundFilled,
-  ControlFilled,
+  RotateLeftOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import { KeepAlive } from 'react-activation';
@@ -196,15 +194,19 @@ const Backup: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<TagsOutlined />}>
+        绑定标签
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<ImportOutlined />}>
+        添加到项目
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<RotateLeftOutlined />}>
+        从项目中移除
+      </Menu.Item>
+
+      <Menu.Item key="4" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );

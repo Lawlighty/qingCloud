@@ -95,9 +95,9 @@ const HarddiskDetail: React.FC<{}> = (props) => {
   return (
     <PageContainer>
       <div className={styles.body_div}>
-        {/* 编辑 */}
-        <ModifyDisk visible={visibleMod} onClose={onClosModal} />
         <div className={styles.left_div}>
+          {/* 编辑 */}
+          <ModifyDisk visible={visibleMod} onClose={onClosModal} />
           <div className={styles.mapping_drawer}>
             <div className={styles.mapping_item}>
               <div className={styles.title}>

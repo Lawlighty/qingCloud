@@ -70,6 +70,7 @@ ol {
 .flex {
   display: flex;
   align-items: center;
+  flex-wrap: wrap-reverse;
 }
 .flex_start {
   display: flex;
@@ -516,6 +517,14 @@ ol {
   color: #fff;
   }
 }
+
+ // h5 适配
+ @media (max-width: 400px) {
+  .bg_div_white{
+    background: #fff;
+    min-width: 100px;
+  }
+ }
 // @side_width: 208px;
 @side_width: 416px;
 // 侧边栏
