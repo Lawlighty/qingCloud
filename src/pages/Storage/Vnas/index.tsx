@@ -27,6 +27,7 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import CreateResource from '../components/CreateResource/index';
 import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
@@ -95,6 +96,7 @@ const Vnas: React.FC<{}> = (props) => {
   ]);
   const [pagination, setPagination] = useState<object>({ current: 1, pageSize: 10 });
 
+  const [showBuid, setShowBuild] = useState<boolean>(false);
   // table
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -211,6 +213,12 @@ const Vnas: React.FC<{}> = (props) => {
   return (
     <KeepAlive name="/storage/vnas" path="文件存储vNAS" saveScrollPosition="screen">
       <PageContainer>
+        <CreateResource
+          visible={showBuid}
+          onClose={() => {
+            setShowBuild(false);
+          }}
+        />
         <div className="bg_div_white font_12">
           <NotificTips>
             <div>
@@ -246,10 +254,18 @@ const Vnas: React.FC<{}> = (props) => {
                 >
                   <RedoOutlined />
                 </div>
-                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    setShowBuild(true);
+                  }}
+                >
                   <PlusOutlined />
                   创建
                 </Button>
+
                 <div>
                   <Dropdown overlay={menu} trigger={['click']}>
                     <Button className={`${styles.mybtn} ${styles.height_36}`}>

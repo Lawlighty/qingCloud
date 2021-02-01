@@ -27,6 +27,7 @@ import {
   ControlFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
+import CreateResource from '../components/CreateResource/index';
 import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
@@ -38,6 +39,8 @@ const Sharedstorage: React.FC<{}> = (props) => {
     left: <div style={{ width: '20px' }} />,
     // right: <Button>Right Extra Action</Button>,
   };
+
+  const [showBuid, setShowBuild] = useState<boolean>(false);
   // tab
   const [currentTabs, setCurrentTabs] = useState<string>('1');
   // view
@@ -211,6 +214,12 @@ const Sharedstorage: React.FC<{}> = (props) => {
   return (
     <KeepAlive name="/storage/sharedstorage" path="共享存储" saveScrollPosition="screen">
       <PageContainer>
+        <CreateResource
+          visible={showBuid}
+          onClose={() => {
+            setShowBuild(false);
+          }}
+        />
         <div className="bg_div_white font_12">
           <NotificTips>
             {currentTabs === '1' && (
@@ -257,7 +266,14 @@ const Sharedstorage: React.FC<{}> = (props) => {
                 >
                   <RedoOutlined />
                 </div>
-                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    setShowBuild(true);
+                  }}
+                >
                   <PlusOutlined />
                   创建
                 </Button>
