@@ -33,7 +33,7 @@ export default function Tab({ node }) {
 
   return (
     <li
-      className={location.pathname === node.name ? styles.active : ''}
+      className={location.pathname === node.name ? `${styles.active} my_li active` : ` my_li`}
       onClick={() => {
         history.push(node.name);
       }}

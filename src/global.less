@@ -460,6 +460,58 @@ ol {
 .ant-layout {
   overflow-y: auto;
 }
+// 标签页
+.my_Head_Tabs{
+  .ant-tabs-tab-active{
+    background: #018ffb !important;
+  }
+  .ant-tabs-tab{
+    .ant-tabs-tab-btn{
+
+      .my_li{
+        display: flex !important;
+      align-items: center !important;
+        span{
+          margin-left: 8px !important;
+          font-size: 10px !important;
+        }
+        &.active {
+    color: #fff;
+    }
+      }
+       .active::before {
+     position: absolute;
+      top: calc(50% - 3px);
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      content: '';
+      transition: none;
+    }
+    }
+
+
+  }
+
+}
+.my_Head_Tabs_closable{
+  .ant-tabs-tab{
+    padding: 8px 0px 8px 16px !important;
+  }
+}
+.my_li{
+      display: flex !important;
+    align-items: center !important;
+      span{
+        margin-left: 8px !important;
+        font-size: 10px !important;
+      }
+      &.active {
+  color: #fff;
+  }
+}
 // @side_width: 208px;
 @side_width: 416px;
 // 侧边栏
