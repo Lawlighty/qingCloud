@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { connect, Dispatch } from 'umi';
+import { history, Reducer, Effect } from 'umi';
 import styles from './index.less';
 import {
   Tabs,
@@ -19,10 +20,11 @@ import {
   RedoOutlined,
   PlusOutlined,
   DownOutlined,
-  UserOutlined,
+  CaretRightOutlined,
   AppstoreFilled,
-  CopyOutlined,
-  KeyOutlined,
+  CloseSquareOutlined,
+  IssuesCloseOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import { KeepAlive } from 'react-activation';
@@ -149,15 +151,18 @@ const RabbitMq: React.FC<{}> = (props) => {
 
   //更多操作
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" disabled icon={<UserOutlined />}>
-        1st menu item
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" disabled icon={<CaretRightOutlined />}>
+        启动
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        2nd menu item
+      <Menu.Item key="2" icon={<CloseSquareOutlined />}>
+        关闭
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd menu item
+      <Menu.Item key="3" icon={<IssuesCloseOutlined />}>
+        重启
+      </Menu.Item>
+      <Menu.Item key="4" icon={<DeleteOutlined />}>
+        删除
       </Menu.Item>
     </Menu>
   );
@@ -186,7 +191,15 @@ const RabbitMq: React.FC<{}> = (props) => {
                 >
                   <RedoOutlined />
                 </div>
-                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    // router.push('/Messagemiddleware/RabbitMq/components/CreateRabbitMq');
+                    history.push('/Messagemiddleware/RabbitMq/CreateRabbitMq');
+                  }}
+                >
                   <PlusOutlined />
                   创建
                 </Button>

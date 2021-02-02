@@ -116,7 +116,7 @@ const AskNetwork: React.FC<{}> = (props) => {
                   value={net}
                   onChange={(e) => setNet(e.target.value)}
                 />
-                <div className="dark_btn" style={{ padding: '5px 16px', marginLeft: 10 }}>
+                <div className="dark_btn" style={{ marginLeft: 10 }}>
                   <NodeIndexOutlined />
                   选择私有网络
                 </div>
@@ -183,7 +183,7 @@ const AskNetwork: React.FC<{}> = (props) => {
           </div>
           <div className={styles.footer}>
             <Button type="primary">提交</Button>
-            <div className="dark_btn" style={{ padding: '5px 16px', marginLeft: 10 }}>
+            <div className="dark_btn" style={{ marginLeft: 10 }}>
               取消
             </div>
           </div>

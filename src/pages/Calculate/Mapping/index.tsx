@@ -229,6 +229,13 @@ const Mapping: React.FC<{}> = (props) => {
       </Menu.Item>
     </Menu>
   );
+  const menu2 = (
+    <Menu onClick={handleMenuClick} className="dark_drop">
+      <Menu.Item key="1" icon={<CopyOutlined />}>
+        克隆镜像
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <KeepAlive name="/calculate/mapping" path="映像" saveScrollPosition="screen">
@@ -283,7 +290,7 @@ const Mapping: React.FC<{}> = (props) => {
                 </Button>
                 {(currentTabs === '2' || currentTabs === '3') && (
                   <div>
-                    <Dropdown overlay={menu} trigger={['click']}>
+                    <Dropdown overlay={currentTabs === '2' ? menu : menu2} trigger={['click']}>
                       <Button className={`${styles.mybtn} ${styles.height_36}`}>
                         <AppstoreFilled />
                         更多操作 <DownOutlined />

@@ -226,6 +226,13 @@
                     component: './Messagemiddleware/RabbitMq',
                   },
                   {
+                    path: '/messagemiddleware/RabbitMq/CreateRabbitMq',
+                    hideInMenu: true,
+                    // name: 'sub-page',
+                    name: '创建RabbitMq',
+                    component: './Messagemiddleware/RabbitMq/CreateRabbitMq/index',
+                  },
+                  {
                     path: '/messagemiddleware/RocketMq',
                     // name: 'sub-page',
                     name: 'RocketMq',

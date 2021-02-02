@@ -32,6 +32,7 @@ ol {
 .bg_div_white {
   background: #fff;
   min-width: 800px;
+  // margin-top: 20px;
   // padding: 20px;
 }
 .min_w_800 {
@@ -70,6 +71,7 @@ ol {
 .flex {
   display: flex;
   align-items: center;
+  flex-wrap: wrap-reverse;
 }
 .flex_start {
   display: flex;
@@ -119,6 +121,9 @@ ol {
   margin: 20px 0;
 }
 
+.margin_t_10{
+  margin-top: 10px;
+}
 .margin_10_20 {
   margin: 10px 20px;
 }
@@ -341,6 +346,7 @@ ol {
   background: #3e5265;
   color: #fff;
   padding: 8px 16px;
+  height: 32px;
   text-align: center;
   border-radius: 2px;
   cursor: pointer;
@@ -460,8 +466,15 @@ ol {
 .ant-layout {
   overflow-y: auto;
 }
+.ant-pro-page-container-children-content{
+  margin: 0 !important;
+}
 // 标签页
 .my_Head_Tabs{
+  .ant-tabs-nav{
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgb(29 35 41 / 5%);
+  }
   .ant-tabs-tab-active{
     background: #018ffb !important;
   }
@@ -512,6 +525,14 @@ ol {
   color: #fff;
   }
 }
+
+ // h5 适配
+ @media (max-width: 400px) {
+  .bg_div_white{
+    background: #fff;
+    min-width: 100px;
+  }
+ }
 // @side_width: 208px;
 @side_width: 416px;
 // 侧边栏
