@@ -9,7 +9,7 @@ import CreateResource from '@/pages/components/CreateResource/index';
 
 const { TextArea } = Input;
 const { Option } = Select;
-const CreateRabbitMq: React.FC<{}> = (props) => {
+const CreateRocketMq: React.FC<{}> = (props) => {
   const [costInfo, setCostInfo] = useState({
     type: 0,
     node1: 3,
@@ -24,7 +24,7 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
 
   const [setpInfo1, setSetpInfo1] = useState({
     uuid: '95362219894467119',
-    name: 'RabbitMQ',
+    name: 'RocketMQ',
     desc: '我是描述',
     version: 0,
     configuration: 1,
@@ -186,10 +186,8 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
                         selectStep1('version', e);
                       }}
                     >
-                      <Option value={0}>RabbitMQ 3.7.23 - QingCloud 1.4.1</Option>
-                      <Option value={1}>RabbitMQ 3.6.10 - QingCloud 1.2.2</Option>
-                      <Option value={2}>RabbitMQ 3.6.10 - QingCloud 1.2.1</Option>
-                      <Option value={3}>RabbitMQ 3.6.10 - QingCloud 1.2.0</Option>
+                      <Option value={0}>RocketMQ 4.7.1 - QingCloud 1.1.0</Option>
+                      <Option value={1}>RocketMQ 4.3.1 - QingCloud 1.0.0</Option>
                     </Select>
                   </div>
                 </div>
@@ -1030,22 +1028,26 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
           <div className="p_20">
             {' '}
             <div className={styles.price_res}>
-              <div className={styles.title}>磁盘节点 3个</div>
+              <div className={styles.title}>名称服务器 2个</div>
               <div className={styles.info}>主机 企业型 e1 2核 4 G</div>
             </div>
             <div className={styles.price_res}>
-              <div className={styles.title}>client 节点 1个</div>
-              <div className={styles.info}>主机 基础型 1核 1 G</div>
+              <div className={styles.title}>Broker 3个 副本数量1</div>
+              <div className={styles.info}>主机 企业型 e1 4核 8 G</div>
             </div>
             <div className={styles.price_res}>
-              <div className={styles.title}>负载均衡器 2个</div>
-              <div className={styles.info}>主机 基础型 2核 2 G</div>
+              <div className={styles.title}>网页控制台 1个</div>
+              <div className={styles.info}>主机 企业型 e1 2核</div>
+            </div>
+            <div className={styles.price_res}>
+              <div className={styles.title}>客户端 1个</div>
+              <div className={styles.info}>主机 基础型 1核 1 G</div>
             </div>
             <div className={styles.total}>
               <div className={styles.total_price}>
                 <div className={styles.label}>总价格</div>
                 <div className={styles.info}>
-                  <div className={styles.price}>12111.2442</div>{' '}
+                  <div className={styles.price}>11.8112</div>{' '}
                   <div className={styles.unit}>¥ / 年</div>
                 </div>
               </div>
@@ -1063,4 +1065,4 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
     </PageContainer>
   );
 };
-export default connect(() => ({}))(CreateRabbitMq);
+export default connect(() => ({}))(CreateRocketMq);

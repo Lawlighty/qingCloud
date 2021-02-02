@@ -232,11 +232,19 @@
                     name: '创建RabbitMq',
                     component: './Messagemiddleware/RabbitMq/CreateRabbitMq/index',
                   },
+
                   {
                     path: '/messagemiddleware/RocketMq',
                     // name: 'sub-page',
                     name: 'RocketMq',
                     component: './Messagemiddleware/RocketMq',
+                  },
+                  {
+                    path: '/messagemiddleware/RocketMq/CreateRocketMq',
+                    hideInMenu: true,
+                    // name: 'sub-page',
+                    name: '创建RocketMq',
+                    component: './Messagemiddleware/RocketMq/CreateRocketMq/index',
                   },
                 ],
               },

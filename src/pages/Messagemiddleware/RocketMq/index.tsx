@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { connect, Dispatch } from 'umi';
+import { connect, Dispatch, history } from 'umi';
 import styles from './index.less';
 import {
   Tabs,
@@ -190,7 +190,14 @@ const RocketMq: React.FC<{}> = (props) => {
                 >
                   <RedoOutlined />
                 </div>
-                <Button type="primary" className={styles.height_36} style={{ marginRight: 4 }}>
+                <Button
+                  type="primary"
+                  className={styles.height_36}
+                  style={{ marginRight: 4 }}
+                  onClick={() => {
+                    history.push('/messagemiddleware/RocketMq/CreateRocketMq');
+                  }}
+                >
                   <PlusOutlined />
                   创建
                 </Button>

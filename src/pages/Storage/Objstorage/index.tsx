@@ -23,7 +23,7 @@ import {
   AppstoreFilled,
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
-import CreateResource from '../components/CreateResource/index';
+import CreateResource from '@/pages/components/CreateResource/index';
 import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;

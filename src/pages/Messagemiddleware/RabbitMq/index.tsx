@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { connect, Dispatch } from 'umi';
-import { history, Reducer, Effect } from 'umi';
+import { connect, Dispatch, history } from 'umi';
+
 import styles from './index.less';
 import {
   Tabs,
