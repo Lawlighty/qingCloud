@@ -63,31 +63,16 @@ const CreateRocketMq: React.FC<{}> = (props) => {
     setSetpInfo2Diy({ ...setpInfo2Diy, [key]: e });
   };
   const [setpInfo3, setSetpInfo3] = useState({
-    haproxy_balance_policy: 0,
-    haproxy_web_port: '8100',
-    haproxy_username: 'haproxy',
-    haproxy_password: '',
-    num_tcp_acceptors: 10,
-    handshake_timeout: 10000,
-    vm_memory_high_watermark: 0,
-    vm_memory_high_watermark_paging_ratio: 0,
-    disk_free_limit: 50000000,
-    frame_max: 131072,
-    channel_max: 0,
-    heartbeat: 60,
-    collect_statistics: 0,
-    collect_statistics_interval: 5000,
-    cluster_partition_handling: 0,
-    hipe_compile: 0,
-    cluster_keepalive_interval: 10000,
-    background_gc_target_interval: 60000,
-    background_gc_enabled: 0,
-    reverse_dns_lookups: 0,
-    tracing_user: 'guest',
-    proxy_protocol: 0,
+    copy_mode: 0,
     switch_of_log_web_console: 0,
-    username_of_log_web_console: 'admin',
-    'password_of log_web_console': '',
+    file_look_username: 'admin',
+    file_look_password: '123',
+    mq_name: 'DefaultCluster',
+    save_time: 72,
+    delete_time: 4,
+    keep_way: 1,
+    console_username: 'admin',
+    console_password: '123',
   });
   const changeStep3 = (key, e) => {
     setSetpInfo3({ ...setpInfo3, [key]: e.target.value });
@@ -471,446 +456,28 @@ const CreateRocketMq: React.FC<{}> = (props) => {
             {showSet3 && (
               <div className={styles.detail}>
                 <div className={styles.item}>
-                  <div className={`${styles.labe}`}>haproxy_balance_policy</div>
-                  <div className={styles.info}>
-                    <Select
-                      style={{ minWidth: 150 }}
-                      value={setpInfo3.haproxy_balance_policy}
-                      onChange={(e) => {
-                        selectStep3('haproxy_balance_policy', e);
-                      }}
-                    >
-                      <Option value={0}>轮询</Option>
-                      <Option value={1}>最小连接</Option>
-                      <Option value={2}>静态权重</Option>
-                      <Option value={3}>IP 哈希</Option>
-                      <Option value={4}>uri 哈希</Option>
-                      <Option value={5}>url_param 哈希</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    负载均衡策略(roundrobin:轮询, leastconn:最小连接, static-rr:静态权重, source:IP
-                    哈希, uri:uri 哈希, url_param:url_param 哈希)
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>haproxy_web_port</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ width: 150 }}
-                      value={setpInfo3.haproxy_web_port}
-                      onChange={(e) => {
-                        selectStep3('haproxy_web_port', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>haproxy 监控界面端口</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>haproxy_username</div>
-                  <div className={styles.info}>
-                    <Input
-                      // style={{ width: 150 }}
-                      value={setpInfo3.haproxy_username}
-                      onChange={(e) => {
-                        changeStep3('haproxy_username', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>haproxy 监控界面用户名</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>haproxy_password</div>
-                  <div className={styles.info}>
-                    <Input.Password
-                      // style={{ width: 150 }}
-                      value={setpInfo3.haproxy_password}
-                      onChange={(e) => {
-                        changeStep3('haproxy_password', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>haproxy 监控界面密码</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>num_tcp_acceptors</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      // style={{ width: 150 }}
-                      min={10}
-                      max={200}
-                      value={setpInfo3.num_tcp_acceptors}
-                      onChange={(e) => {
-                        selectStep3('num_tcp_acceptors', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    接受TCP侦听器连接的Erlang进程数 (范围: 10 - 200)
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>handshake_timeout</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={5000}
-                      value={setpInfo3.handshake_timeout}
-                      onChange={(e) => {
-                        selectStep3('handshake_timeout', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    AMQP 0-8/0-9/0-9-1 handshake (在 socket 连接和SSL 握手之后）的最大时间,
-                    单位为毫秒 (范围: 5000 - )
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>vm_memory_high_watermark</div>
+                  <div className={`${styles.labe} key_require_after`}>Broker 主从复制模式</div>
                   <div className={styles.info}>
                     <Select
                       // style={{ minWidth: 150 }}
-                      value={setpInfo3.vm_memory_high_watermark}
+                      value={setpInfo3.copy_mode}
                       onChange={(e) => {
-                        selectStep3('vm_memory_high_watermark', e);
+                        selectStep3('copy_mode', e);
                       }}
                     >
-                      <Option value={0}>0.3</Option>
-                      <Option value={1}>0.4</Option>
-                      <Option value={2}>0.5</Option>
-                      <Option value={3}>0.6</Option>
-                      <Option value={4}>0.7</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>流程控制触发的内存阀值</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>disk_free_limit</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.vm_memory_high_watermark_paging_ratio}
-                      onChange={(e) => {
-                        selectStep3('vm_memory_high_watermark_paging_ratio', e);
-                      }}
-                    >
-                      <Option value={0}>0.3</Option>
-                      <Option value={1}>0.4</Option>
-                      <Option value={2}>0.5</Option>
-                      <Option value={3}>0.6</Option>
-                      <Option value={4}>0.7</Option>
+                      <Option value={0}>ASYNC</Option>
+                      <Option value={1}>SYNC</Option>
                     </Select>
                   </div>
                 </div>
                 <div className={styles.item}>
                   <div className={styles.labe} />
                   <div className={styles.info}>
-                    高水位限制的分数，当达到阀值时，队列中消息会转移到磁盘上以释放内存
+                    SYNC（同步模式）：每条消息数据复制到所有从节点才会通知客户端；ASYNC（异步模式）：每条消息数据在主节点处理完成就立即通知给客户端
                   </div>
                 </div>
                 <div className={styles.item}>
-                  <div className={`${styles.labe}`}>disk_free_limit</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      // min={5000}
-                      value={setpInfo3.disk_free_limit}
-                      onChange={(e) => {
-                        selectStep3('disk_free_limit', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    RabbitMQ存储数据分区的可用磁盘空间限制．当可用空间值低于阀值时，流程控制将被触发.默认情况下，可用磁盘空间必须超过50MB
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>frame_max</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={0}
-                      value={setpInfo3.frame_max}
-                      onChange={(e) => {
-                        selectStep3('frame_max', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    与客户端协商的允许最大frame大小.
-                    设置为０表示无限制，但在某些QPid客户端会引发bug.
-                    设置较大的值可以提高吞吐量;设置一个较小的值可能会提高延迟
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>channel_max</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={0}
-                      value={setpInfo3.channel_max}
-                      onChange={(e) => {
-                        selectStep3('channel_max', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    与客户端协商的允许最大chanel大小.
-                    设置为０表示无限制．该数值越大，则broker使用的内存就越高
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>heartbeat</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={0}
-                      value={setpInfo3.heartbeat}
-                      onChange={(e) => {
-                        selectStep3('heartbeat', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    表示心跳延迟(单位为秒) ，服务器将在connection.tune frame中发送.如果设置为 0,
-                    心跳将被禁用.
-                    客户端可以不用遵循服务器的建议,禁用心跳可以在有大量连接的场景中提高性能，但可能会造成关闭了非活动连接的网络设备上的连接落下
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>collect_statistics</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.collect_statistics}
-                      onChange={(e) => {
-                        selectStep3('collect_statistics', e);
-                      }}
-                    >
-                      <Option value={0}>none</Option>
-                      <Option value={1}>coarse</Option>
-                      <Option value={2}>fine</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>统计收集模式。主要与管理插件相关</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>collect_statistics_interval</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={0}
-                      value={setpInfo3.collect_statistics_interval}
-                      onChange={(e) => {
-                        selectStep3('collect_statistics_interval', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    统计收集时间间隔(毫秒为单位)． 主要针对于 management plugin
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>cluster_partition_handling</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.cluster_partition_handling}
-                      onChange={(e) => {
-                        selectStep3('cluster_partition_handling', e);
-                      }}
-                    >
-                      <Option value={0}>ignore</Option>
-                      <Option value={1}>pause_minority</Option>
-                      <Option value={2}>autoheal</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>如何处理网络分区</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>hipe_compile</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.hipe_compile}
-                      onChange={(e) => {
-                        selectStep3('hipe_compile', e);
-                      }}
-                    >
-                      <Option value={0}>false</Option>
-                      <Option value={1}>true</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    将此选项设置为true,将会使用HiPE预编译部分RabbitMQ,Erlang的即时编译器.你可以看到花费几分钟延迟启动的成本，就可以带来20-50%
-                    更好性能
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>cluster_keepalive_interval</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={0}
-                      value={setpInfo3.cluster_keepalive_interval}
-                      onChange={(e) => {
-                        selectStep3('cluster_keepalive_interval', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    节点向其它节点发送存活消息和频率(毫秒). 注意，这与 net_ticktime是不同的;
-                    丢失存活消息不会引起节点掉线
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>background_gc_target_interval</div>
-                  <div className={styles.info}>
-                    <InputNumber
-                      style={{ minWidth: 150 }}
-                      min={30000}
-                      value={setpInfo3.background_gc_target_interval}
-                      onChange={(e) => {
-                        selectStep3('background_gc_target_interval', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    GC 实际间隔将根据执行操作所需的时间而有所不同 (范围: 30000 - )
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>background_gc_enabled</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.background_gc_enabled}
-                      onChange={(e) => {
-                        selectStep3('background_gc_enabled', e);
-                      }}
-                    >
-                      <Option value={0}>false</Option>
-                      <Option value={1}>true</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>是否启用 GC，开启或许可以减少内存使用</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>reverse_dns_lookups</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.reverse_dns_lookups}
-                      onChange={(e) => {
-                        selectStep3('reverse_dns_lookups', e);
-                      }}
-                    >
-                      <Option value={0}>false</Option>
-                      <Option value={1}>true</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    设置为true,可让客户端在连接时让RabbitMQ 执行一个反向DNS查找, 然后通过
-                    rabbitmqctl 和 管理插件来展现信息
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>tracing_user</div>
-                  <div className={styles.info}>
-                    <Input
-                      style={{ minWidth: 150 }}
-                      value={setpInfo3.tracing_user}
-                      onChange={(e) => {
-                        changeStep3('tracing_user', e);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>用于创建追踪队列的用户</div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>proxy_protocol</div>
-                  <div className={styles.info}>
-                    <Select
-                      // style={{ minWidth: 150 }}
-                      value={setpInfo3.proxy_protocol}
-                      onChange={(e) => {
-                        selectStep3('proxy_protocol', e);
-                      }}
-                    >
-                      <Option value={0}>false</Option>
-                      <Option value={1}>true</Option>
-                    </Select>
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={styles.labe} />
-                  <div className={styles.info}>
-                    是否启用代理协议支持。一旦启用，客户端就不能直接连接到代理了。他们必须通过负载平衡器连接，此设置仅适用于AMQP客户端，其他协议类型的MQTT或STOMP有自己的设置来启用代理协议。有关更多信息，请参阅插件文档
-                  </div>
-                </div>
-                <div className={styles.item}>
-                  <div className={`${styles.labe}`}>Switch of log web console</div>
+                  <div className={`${styles.labe}`}>开启文件查看</div>
                   <div className={styles.info}>
                     <Select
                       // style={{ minWidth: 150 }}
@@ -929,36 +496,158 @@ const CreateRocketMq: React.FC<{}> = (props) => {
                   <div className={styles.info}>文件管理控制台开关，true=开启，默认关闭</div>
                 </div>
                 <div className={styles.item}>
-                  <div className={`${styles.labe}`}>Username of log web console</div>
+                  <div className={`${styles.labe}`}>文件查看用户名</div>
                   <div className={styles.info}>
                     <Input
                       style={{ minWidth: 150 }}
-                      value={setpInfo3.username_of_log_web_console}
+                      value={setpInfo3.file_look_username}
                       onChange={(e) => {
-                        changeStep3('username_of_log_web_console', e);
+                        changeStep3('file_look_username', e);
                       }}
                     />
                   </div>
                 </div>
                 <div className={styles.item}>
                   <div className={styles.labe} />
-                  <div className={styles.info}>文件管理控制台登陆用户名，默认admin</div>
+                  <div className={styles.info}>
+                    文件管理控制台登陆用户名，默认admin，可以包含小写字母、数字、半角句点（.）和短横线（-)，不会重启
+                    broker
+                  </div>
                 </div>
                 <div className={styles.item}>
-                  <div className={`${styles.labe}`}>Password of log web console</div>
+                  <div className={`${styles.labe}`}>文件查看密码</div>
                   <div className={styles.info}>
                     <Input.Password
                       style={{ minWidth: 150 }}
-                      value={setpInfo3['password_of log_web_console']}
+                      value={setpInfo3.file_look_password}
                       onChange={(e) => {
-                        changeStep3('password_of', e);
+                        changeStep3('file_look_password', e);
                       }}
                     />
                   </div>
                 </div>
                 <div className={styles.item}>
                   <div className={styles.labe} />
-                  <div className={styles.info}>文件管理控制台登陆密码，默认为空</div>
+                  <div className={styles.info}>
+                    文件管理控制台登陆密码，可由数字、字母、下划线组成，默认为空表示不需要密码，可以直接访问，不会重启
+                    broker
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>MQ 集群名称</div>
+                  <div className={styles.info}>
+                    <Input
+                      style={{ minWidth: 150 }}
+                      value={setpInfo3.mq_name}
+                      onChange={(e) => {
+                        changeStep3('mq_name', e);
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>RocketMQ 集群名称</div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>数据文件保存时长</div>
+                  <div className={styles.info}>
+                    <InputNumber
+                      style={{ minWidth: 150 }}
+                      min={1}
+                      value={setpInfo3.save_time}
+                      onChange={(e) => {
+                        selectStep3('save_time', e);
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>
+                    数据文件（commitlog）在服务器上可保存的最长时间，以小时数表示 (范围: 1 - )
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>过期数据文件删除时间</div>
+                  <div className={styles.info}>
+                    <InputNumber
+                      style={{ minWidth: 150 }}
+                      min={0}
+                      max={23}
+                      value={setpInfo3.delete_time}
+                      onChange={(e) => {
+                        selectStep3('delete_time', e);
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>
+                    清除过期数据文件（commitlog）的时间，以 24 小时制（整点）表示 (范围: 0 - 23)
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>
+                    数据文件（commitlog）在服务器上可保存的最长时间，以小时数表示 (范围: 1 - )
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>数据持久化方式</div>
+                  <div className={styles.info}>
+                    <Select
+                      // style={{ minWidth: 150 }}
+                      value={setpInfo3.keep_way}
+                      onChange={(e) => {
+                        selectStep3('keep_way', e);
+                      }}
+                    >
+                      <Option value={0}>ASYNC_FLUSH</Option>
+                      <Option value={1}>SYNC_FLUSH</Option>
+                    </Select>
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>
+                    消息数据持久化（刷盘）模式，SYNC（同步模式）：每条消息成功写入磁盘后才通知客户端；ASYNC（异步模式）：消息批量写到磁盘，可以有更好的性能
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>RocketMQ 控制台用户名</div>
+                  <div className={styles.info}>
+                    <Input
+                      style={{ minWidth: 150 }}
+                      value={setpInfo3.console_username}
+                      onChange={(e) => {
+                        changeStep3('console_username', e);
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>网页控制台用户名，默认为 admin 拥有管理者权限</div>
+                </div>
+                <div className={styles.item}>
+                  <div className={`${styles.labe}`}>RocketMQ 控制台密码</div>
+                  <div className={styles.info}>
+                    <Input.Password
+                      style={{ minWidth: 150 }}
+                      value={setpInfo3['console_password']}
+                      onChange={(e) => {
+                        changeStep3('console_password', e);
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.labe} />
+                  <div className={styles.info}>
+                    网页控制台登陆密码，默认为 password 当且仅当密码不为空时开启密码登陆
+                  </div>
                 </div>
               </div>
             )}

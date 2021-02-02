@@ -87,7 +87,7 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
     proxy_protocol: 0,
     switch_of_log_web_console: 0,
     username_of_log_web_console: 'admin',
-    'password_of log_web_console': '',
+    password_of_log_web_console: '',
   });
   const changeStep3 = (key, e) => {
     setSetpInfo3({ ...setpInfo3, [key]: e.target.value });
@@ -951,9 +951,9 @@ const CreateRabbitMq: React.FC<{}> = (props) => {
                   <div className={styles.info}>
                     <Input.Password
                       style={{ minWidth: 150 }}
-                      value={setpInfo3['password_of log_web_console']}
+                      value={setpInfo3['password_of_log_web_console']}
                       onChange={(e) => {
-                        changeStep3('password_of', e);
+                        changeStep3('password_of_log_web_console', e);
                       }}
                     />
                   </div>
