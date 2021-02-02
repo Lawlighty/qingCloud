@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { InputNumber, Select } from 'antd';
 import styles from './index.less';
 import { CheckOutlined } from '@ant-design/icons';
+import CreateResource from '@/pages/components/CreateResource/index';
 
 const Network: React.FC<{}> = (props) => {
   // 自管网络
@@ -18,6 +19,7 @@ const Network: React.FC<{}> = (props) => {
     },
   ]);
 
+  const [showBuid, setShowBuild] = useState<boolean>(false);
   return (
     <div>
       <div className={styles.step_inner}>
@@ -27,7 +29,20 @@ const Network: React.FC<{}> = (props) => {
               <div className={styles.title}>VPC 私有网络</div>
               <div>
                 保证用户之间 100% 隔离的专属网络，推荐使用{' '}
-                <div className={styles.buildVpc}>[创建]</div>
+                <div
+                  className={styles.buildVpc}
+                  onClick={() => {
+                    setShowBuild(true);
+                  }}
+                >
+                  [创建]
+                </div>
+                <CreateResource
+                  visible={showBuid}
+                  onClose={() => {
+                    setShowBuild(false);
+                  }}
+                />
               </div>
             </div>
             <div className={styles.vpc}>无</div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { InputNumber, Select, Slider } from 'antd';
 import styles from './index.less';
+import ChoseDisk from '@/pages/Storage/Harddisk/components/ChoseDisk/index';
 
 const { Option } = Select;
 const Configuration: React.FC<{}> = (props) => {
@@ -246,11 +247,17 @@ const Configuration: React.FC<{}> = (props) => {
             <div
               className={styles.help}
               onClick={() => {
-                setShowOtherDisk(!showOtherDisk);
+                setShowOtherDisk(true);
               }}
             >
               + 挂载其他硬盘
             </div>
+            <ChoseDisk
+              visible={showOtherDisk}
+              onClose={() => {
+                setShowOtherDisk(false);
+              }}
+            />
           </div>
         </div>
       </div>
