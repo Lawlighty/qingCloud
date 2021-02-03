@@ -7,6 +7,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined, BarsOutlined, CopyOutlined } from '@ant-design/icons';
 import OperationLog from '@/pages/components/OperationLog/index';
 import AddHost from '@/pages/Calculate/Hosts/components/AddHost/index';
+import CloneMapping from '../components/CloneMapping/index';
 
 const MappingDetail: React.FC<{}> = (props) => {
   const { visible, onClose } = props;
@@ -16,6 +17,8 @@ const MappingDetail: React.FC<{}> = (props) => {
 
   // 新建主机表单
   const [visibleHost, setVisibleHost] = useState<boolean>(false);
+  // 克隆
+  const [showClone, setShowClone] = useState<boolean>(false);
   const onCancel = () => {
     setVisibleHost(false);
   };
@@ -26,6 +29,8 @@ const MappingDetail: React.FC<{}> = (props) => {
   const handleMenuClick = (e) => {
     if (e.key === '1') {
       setVisibleHost(true);
+    } else if (e.key === '2') {
+      setShowClone(true);
     }
   };
   const menuDrawer = (
@@ -38,8 +43,15 @@ const MappingDetail: React.FC<{}> = (props) => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <PageContainer>
+      <CloneMapping
+        visible={showClone}
+        onClose={() => {
+          setShowClone(false);
+        }}
+      />
       <div className={styles.left_div}>
         <div className={styles.mapping_drawer}>
           <div className={styles.mapping_item}>
@@ -141,7 +153,7 @@ const MappingDetail: React.FC<{}> = (props) => {
           }}
         />
         {/* 添加主机 */}
-        <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} />
+        <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} baseMapping={true} />
       </div>
     </PageContainer>
   );

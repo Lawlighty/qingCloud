@@ -287,6 +287,12 @@ const Harddisk: React.FC<{}> = (props) => {
   return (
     <KeepAlive name="/storage/harddisk" path="硬盘" saveScrollPosition="screen">
       <PageContainer>
+        <CreateDisk
+          visible={showBuid}
+          onClose={() => {
+            setShowBuild(false);
+          }}
+        />
         <div className="bg_div_white font_12">
           <NotificTips>
             <div>
@@ -333,12 +339,7 @@ const Harddisk: React.FC<{}> = (props) => {
                   <PlusOutlined />
                   创建
                 </Button>
-                <CreateDisk
-                  visible={showBuid}
-                  onClose={() => {
-                    setShowBuild(false);
-                  }}
-                />
+
                 <div>
                   <Dropdown overlay={menu} trigger={['click']}>
                     <Button className={`${styles.mybtn} ${styles.height_36}`}>

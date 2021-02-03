@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Modal, Input, InputNumber, Select, Button, Slider, Radio } from 'antd';
 import styles from './index.less';
 import MoveTitle from '@/components/moveTitle/moveTitle';
+import CreateVpc from './CreateVpc/index';
+import CreatePersionNet from './CreatePersionNet/index';
+import ChoseVpc from './ChoseVpc/index';
 
 const { Option } = Select;
 const CreateResource: React.FC<{}> = (props) => {
@@ -10,15 +13,10 @@ const CreateResource: React.FC<{}> = (props) => {
   const [styleLeft, setStyleLeft] = useState<number>(0);
   const [destroyOnClose, setDestroyOnClose] = useState<boolean>(true);
 
-  const [way, setWay] = useState<number>(0);
-  const [name, setName] = useState<string>('');
-  const [num, setNum] = useState<number>(1);
-  const [area, setArea] = useState<number>(0);
-  const [type, setType] = useState<number>(0);
-  // 是否 加密
-  const [isEncry, setIsEncry] = useState<boolean>(false);
-  // 容量
-  const [cpuDisk, setCpuDisk] = React.useState(20);
+  const [showCreateVpc, setShowCreateVpc] = useState<boolean>(false);
+  const [showCreatePersion, setShowCreatePersion] = useState<boolean>(false);
+  const [showChosevpc, setShowChosevpc] = useState<boolean>(false);
+
   return (
     <div className="dark_modal">
       <Modal
@@ -55,15 +53,54 @@ const CreateResource: React.FC<{}> = (props) => {
           <div className={styles.form}>
             <div className={styles.item}>
               <div className={styles.label}>1. 创建 VPC 网络</div>
-              <div className={styles.option}>操作</div>
+              <div
+                className={styles.option}
+                onClick={(e) => {
+                  setShowCreateVpc(true);
+                }}
+              >
+                操作
+              </div>
+              <CreateVpc
+                visible={showCreateVpc}
+                onClose={() => {
+                  setShowCreateVpc(false);
+                }}
+              />
             </div>
             <div className={styles.item}>
               <div className={styles.label}>2. 创建私有网络</div>
-              <div className={styles.option}>操作</div>
+              <div
+                className={styles.option}
+                onClick={(e) => {
+                  setShowCreatePersion(true);
+                }}
+              >
+                操作
+              </div>
+              <CreatePersionNet
+                visible={showCreatePersion}
+                onClose={() => {
+                  setShowCreatePersion(false);
+                }}
+              />
             </div>
             <div className={styles.item}>
               <div className={styles.label}>3. 连接私有网络到 VPC 网络</div>
-              <div className={styles.option}>操作</div>
+              <div
+                className={styles.option}
+                onClick={(e) => {
+                  setShowChosevpc(true);
+                }}
+              >
+                操作
+              </div>
+              <ChoseVpc
+                visible={showChosevpc}
+                onClose={() => {
+                  setShowChosevpc(false);
+                }}
+              />
             </div>
           </div>
           <div className={styles.footer}>

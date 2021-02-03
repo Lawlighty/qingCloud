@@ -93,6 +93,9 @@ ol {
      align-items: flex-start;
 }
 //margin
+.margin_20{
+  margin: 20px ;
+}
 .margin_20_10 {
   margin: 20px 10px;
 }
@@ -360,6 +363,9 @@ ol {
   padding: 8px 16px;
   height: 32px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 2px;
   cursor: pointer;
 }
@@ -393,6 +399,33 @@ ol {
   }
   // background: #020508;
   // color: #fff;
+}
+.line_gray{
+   width: 330px;
+    height: 1px;
+    background: #d5e0e9;
+    display: inline-block;
+    vertical-align: middle;
+    top: 9px;
+    // margin-left: 10px
+}
+// 价格显示
+.price_show{
+  .total{
+     color: #0366d6;
+  }
+  .price{
+    margin: 0 4px;
+    color: #0366d6;
+    font-size: 14px;
+  }
+  .unit {
+    padding: 0 4px 0 0;
+    color: #0366d6;
+}
+.none {
+    color: #0366d6;
+}
 }
 
 // 暗黑 排版
@@ -467,6 +500,10 @@ ol {
   }
 }
 
+// 面包屑
+.ant-page-header{
+  display: none;
+}
 // mini 菜单
 .aaamy > .ant-layout > .ant-layout-sider {
   background: #000000;

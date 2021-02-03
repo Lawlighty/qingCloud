@@ -16,7 +16,7 @@ interface formType {
   accessory?: string[];
 }
 const AddHost: React.FC<{}> = (props) => {
-  const { visible, onCancel, subHost } = props;
+  const { visible, onCancel, subHost, baseMapping } = props;
   const [styleTop, setStyleTop] = useState<number>(100);
   const [styleLeft, setStyleLeft] = useState<number>(0);
   const [destroyOnClose, setDestroyOnClose] = useState<boolean>(true);
@@ -29,20 +29,32 @@ const AddHost: React.FC<{}> = (props) => {
     accessory: [],
   });
 
-  const steps = [
-    {
-      title: '选择映像',
-    },
-    {
-      title: '配置选择',
-    },
-    {
-      title: '网络设置',
-    },
-    {
-      title: '基本信息',
-    },
-  ];
+  const steps = baseMapping
+    ? [
+        {
+          title: '配置选择',
+        },
+        {
+          title: '网络设置',
+        },
+        {
+          title: '基本信息',
+        },
+      ]
+    : [
+        {
+          title: '选择映像',
+        },
+        {
+          title: '配置选择',
+        },
+        {
+          title: '网络设置',
+        },
+        {
+          title: '基本信息',
+        },
+      ];
   // 步骤
   const [current, setCurrent] = React.useState(0);
 
@@ -99,10 +111,20 @@ const AddHost: React.FC<{}> = (props) => {
               </Steps>
             </div>
             {/* // 映像 */}
-            {current === 0 && <ChoseMapping />}
-            {current === 1 && <Configuration />}
-            {current === 2 && <Network />}
-            {current === 3 && <BasicInfo />}
+            {baseMapping ? (
+              <div>
+                {current === 0 && <Configuration />}
+                {current === 1 && <Network />}
+                {current === 2 && <BasicInfo />}
+              </div>
+            ) : (
+              <div>
+                {current === 0 && <ChoseMapping />}
+                {current === 1 && <Configuration />}
+                {current === 2 && <Network />}
+                {current === 3 && <BasicInfo />}
+              </div>
+            )}
 
             <div className={styles.step_action}>
               {current > 0 && (

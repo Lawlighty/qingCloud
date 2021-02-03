@@ -318,7 +318,12 @@ const Mapping: React.FC<{}> = (props) => {
             {/* 抽屉 */}
             {/* <MappingDrawer visible={visibleDriver} onClose={onCloseDrawer} /> */}
             {/* 基于映像创建主机 */}
-            <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} />
+            <AddHost
+              visible={visibleHost}
+              onCancel={onCancel}
+              subHost={subHost}
+              baseMapping={true}
+            />
             <p className="tips">
               * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
             </p>
