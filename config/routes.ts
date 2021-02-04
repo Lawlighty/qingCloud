@@ -30,7 +30,7 @@
             routes: [
               {
                 path: '/',
-                redirect: '/welcome',
+                redirect: '/overview',
               },
               {
                 path: '/welcome',

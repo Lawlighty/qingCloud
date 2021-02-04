@@ -123,6 +123,13 @@ const Objstorage: React.FC<{}> = (props) => {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
+      render: (text, record) => {
+        return (
+          <Link to={`/storage/vnas/rootgroup/${text}`} className="span_line cursor_p color_blue">
+            {text}'tips暂无跳转页面'
+          </Link>
+        );
+      },
     },
     {
       title: 'Url (API访问用)',

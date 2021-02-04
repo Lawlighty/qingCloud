@@ -129,6 +129,13 @@ const Network: React.FC<{}> = (props) => {
       title: 'MAC 地址',
       dataIndex: 'mac',
       key: 'mac',
+      render: (text, record) => {
+        return (
+          <Link to={`/storage/vnas/rootgroup/${text}`} className="span_line cursor_p color_blue">
+            {text}'tips暂无跳转页面'
+          </Link>
+        );
+      },
     },
     {
       title: '名称 / 角色',

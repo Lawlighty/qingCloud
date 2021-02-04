@@ -40,11 +40,11 @@ const IconMap = {
 };
 
 const defaultMenus = [
-  {
-    path: '/welcome',
-    name: '欢迎',
-    icon: 'smile',
-  },
+  // {
+  //   path: '/welcome',
+  //   name: '欢迎',
+  //   icon: 'smile',
+  // },
   {
     path: '/overview',
     name: '总览',
