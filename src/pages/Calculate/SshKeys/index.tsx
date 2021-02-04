@@ -20,6 +20,8 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import CreateSsh from './components/CreateSsh/index';
+import EditSsh from './components/EditSsh/index';
+import ChoseHost from '@/pages/Calculate/Hosts/components/ChoseHost/index';
 import { KeepAlive } from 'react-activation';
 
 const { Search } = Input;
@@ -28,6 +30,8 @@ const { Search } = Input;
 const SshKeys: React.FC<{}> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCreate, setShowCreate] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [showChosehost, setShowChosehost] = useState<boolean>(false);
   const [data, setData] = useState([
     {
       id: 'arch201310x64a',
@@ -82,8 +86,10 @@ const SshKeys: React.FC<{}> = (props) => {
   };
   // 更多操作
   const handleMenuClick = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
+    console.log('handleMenuClick', e);
+    if (e.key === '1') {
+      setShowEdit(true);
+    }
   };
   // 查询
   const onSearch = (value) => {
@@ -106,7 +112,7 @@ const SshKeys: React.FC<{}> = (props) => {
       sorter: (a, b) => a.id.length - b.id.length,
       render: (text) => {
         return (
-          <Link to={`/calculate/ssh/${text}`} className="span_line cursor_p color_green">
+          <Link to={`/calculate/ssh/${text}`} className="span_line cursor_p color_blue">
             {text}
           </Link>
         );
@@ -145,7 +151,7 @@ const SshKeys: React.FC<{}> = (props) => {
   //更多操作
   const menu = (
     <Menu onClick={handleMenuClick} className="dark_drop">
-      <Menu.Item key="1" disabled icon={<EditOutlined />}>
+      <Menu.Item key="1" icon={<EditOutlined />}>
         修改
       </Menu.Item>
       <Menu.Item key="2" icon={<TagsOutlined />}>
@@ -157,10 +163,7 @@ const SshKeys: React.FC<{}> = (props) => {
       <Menu.Item key="4" icon={<RotateLeftOutlined />}>
         从项目中移除
       </Menu.Item>
-      <Menu.Item key="5" icon={<IssuesCloseOutlined />}>
-        重置系统
-      </Menu.Item>
-      <Menu.Item key="6" icon={<DeleteOutlined />}>
+      <Menu.Item key="5" icon={<DeleteOutlined />}>
         删除
       </Menu.Item>
     </Menu>
@@ -181,6 +184,13 @@ const SshKeys: React.FC<{}> = (props) => {
             visible={showCreate}
             onClose={() => {
               setShowCreate(false);
+            }}
+          />
+          {/* 修改SSH密钥属性 */}
+          <EditSsh
+            visible={showEdit}
+            onClose={() => {
+              setShowEdit(false);
             }}
           />
           <div className={styles.table_form}>
@@ -219,10 +229,20 @@ const SshKeys: React.FC<{}> = (props) => {
                   className={styles.height_36}
                   style={{ marginRight: 4 }}
                   disabled={!selectedRowKeys.length}
+                  onClick={() => {
+                    setShowChosehost(true);
+                  }}
                 >
                   <KeyOutlined />
                   加载到主机
                 </Button>
+                {/* 修改SSH密钥属性 */}
+                <ChoseHost
+                  visible={showChosehost}
+                  onClose={() => {
+                    setShowChosehost(false);
+                  }}
+                />
 
                 <div>
                   <Dropdown overlay={menu} trigger={['click']}>

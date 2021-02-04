@@ -167,6 +167,13 @@
                     component: './Storage/Vnas',
                   },
                   {
+                    path: '/storage/vnas/rootgroup/:page',
+                    // name: 'sub-page',
+                    hideInMenu: true,
+                    name: '权限组详情',
+                    component: './Storage/Vnas/RootGroupDetails',
+                  },
+                  {
                     path: '/storage/backup',
                     // name: 'sub-page',
                     name: '备份',

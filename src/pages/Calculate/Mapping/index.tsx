@@ -130,7 +130,7 @@ const Mapping: React.FC<{}> = (props) => {
       sorter: (a, b) => a.id.length - b.id.length,
       render: (text) => {
         return (
-          <Link to={`/calculate/mapping/${text}`} className="span_line cursor_p color_green">
+          <Link to={`/calculate/mapping/${text}`} className="span_line cursor_p color_blue">
             {text}
           </Link>
         );

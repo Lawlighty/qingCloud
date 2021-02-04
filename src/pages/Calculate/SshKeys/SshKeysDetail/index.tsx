@@ -16,6 +16,8 @@ import {
 } from '@ant-design/icons';
 import OperationLog from '@/pages/components/OperationLog/index';
 import AddHost from '@/pages/Calculate/Hosts/components/AddHost/index';
+import ChoseHost from '@/pages/Calculate/Hosts/components/ChoseHost/index';
+import EditSsh from '../components/EditSsh/index';
 
 const { Paragraph } = Typography;
 
@@ -30,6 +32,7 @@ const SshKeysDetail: React.FC<{}> = (props) => {
   );
 
   // 新建主机表单
+  const [visibleEdit, setVisibleEdit] = useState<boolean>(false);
   const [visibleHost, setVisibleHost] = useState<boolean>(false);
   const onCancel = () => {
     setVisibleHost(false);
@@ -40,6 +43,8 @@ const SshKeysDetail: React.FC<{}> = (props) => {
   // 更多操作
   const handleMenuClick = (e) => {
     if (e.key === '1') {
+      setVisibleEdit(true);
+    } else if (e.key === '2') {
       setVisibleHost(true);
     }
   };
@@ -127,8 +132,16 @@ const SshKeysDetail: React.FC<{}> = (props) => {
               setVisibleLog(false);
             }}
           />
+          {/* 修改SSH密钥属性 */}
+          <EditSsh
+            visible={visibleEdit}
+            onClose={() => {
+              setVisibleEdit(false);
+            }}
+          />
           {/* 添加主机 */}
-          <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} />
+          <ChoseHost visible={visibleHost} onClose={onCancel} />
+          {/* <AddHost visible={visibleHost} onCancel={onCancel} subHost={subHost} /> */}
         </div>
         <div className={styles.right}>
           <div className={styles.title}>公钥</div>

@@ -30,6 +30,7 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import CreateResource from '@/pages/components/CreateResource/index';
+import RootGroups from './components/RootGroups/index';
 import { KeepAlive } from 'react-activation';
 
 const { TabPane } = Tabs;
@@ -277,6 +278,14 @@ const Vnas: React.FC<{}> = (props) => {
             </Tabs>
           </div>
           <div className={styles.table_form}>
+            {currentTabs === '2' && (
+              <div className="pane_intro">
+                为了方便用户对账户 (Account) 的管理，可以创建 NFS 和 Samba
+                类型的账户组，并将同类型的 Account
+                绑定到账户组中。账户组可以和共享目标直接绑定，账户组之间不可相互绑定。
+              </div>
+            )}
+
             <div className={styles.table_fun}>
               <div className="flex flex_1">
                 <div
@@ -314,20 +323,28 @@ const Vnas: React.FC<{}> = (props) => {
                 <div className={styles.pagination}>合计:0</div>
               </div>
             </div>
-            <Spin tip="数据加载中..." spinning={loading}>
-              <Table
-                columns={columns}
-                rowSelection={rowSelection}
-                rowKey={(record) => record.id}
-                dataSource={data}
-                pagination={pagination}
-                loading={loading}
-                onChange={handleTableChange}
-              />
-            </Spin>
-            <p className="tips">
-              * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
-            </p>
+            <div>
+              {currentTabs === '1' && (
+                <div>
+                  <Spin tip="数据加载中..." spinning={loading}>
+                    <Table
+                      columns={columns}
+                      rowSelection={rowSelection}
+                      rowKey={(record) => record.id}
+                      dataSource={data}
+                      pagination={pagination}
+                      loading={loading}
+                      onChange={handleTableChange}
+                    />
+                  </Spin>
+                  <p className="tips">
+                    *
+                    提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+                  </p>
+                </div>
+              )}
+              {currentTabs === '2' && <RootGroups />}
+            </div>
           </div>
         </div>
       </PageContainer>
