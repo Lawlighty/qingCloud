@@ -44,51 +44,51 @@ const Backup: React.FC<{}> = (props) => {
   const [data, setData] = useState([
     {
       id: 1,
-      name: '企业级分布式 SAN 1',
+      name: '我的备份1',
       state: 'usable',
       drive: 'D',
       cap: '10',
-      type: 'type1',
-      tack: '副本策略1',
+      point: '',
+      area: '',
       project: '所属项目',
+      backon: '',
       backup: '备份于1aaa',
-      createby: '2010-10-10-10',
     },
     {
       id: 2,
-      name: '企业级分布式 SAN 2',
+      name: '我的备份2',
       state: 'stop',
       drive: 'D',
       cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      point: '',
+      area: '',
       project: '所属项目',
+      backon: '',
       backup: '备份于1aaa',
-      createby: '2010-10-10-10',
     },
     {
       id: 3,
-      name: '企业级分布式 SAN 2',
+      name: '我的备份3',
       state: 'stop',
       drive: 'D',
       cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      point: '',
+      area: '',
       project: '所属项目',
+      backon: '',
       backup: '备份于1aaa',
-      createby: '2010-10-10-10',
     },
     {
       id: 4,
-      name: '企业级分布式 SAN 2',
+      name: '我的备份4',
       state: 'stop',
       drive: 'D',
       cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      point: '',
+      area: '',
       project: '所属项目',
+      backon: '',
       backup: '备份于1aaa',
-      createby: '2010-10-10-10',
     },
   ]);
   const [pagination, setPagination] = useState<object>({ current: 1, pageSize: 10 });
@@ -133,9 +133,16 @@ const Backup: React.FC<{}> = (props) => {
   };
   const columns = [
     {
-      title: 'ID',
+      title: '备份链 ID',
       dataIndex: 'id',
       key: 'id',
+      render: (text, record) => {
+        return (
+          <Link to={`/storage/vnas/rootgroup/${text}`} className="span_line cursor_p color_blue">
+            {text}
+          </Link>
+        );
+      },
     },
     {
       title: '名称',
@@ -155,25 +162,24 @@ const Backup: React.FC<{}> = (props) => {
       onFilter: (value, record) => record.state.indexOf(value) === 0,
     },
     {
-      title: '资源/盘符',
+      title: '资源',
       dataIndex: 'drive',
       key: 'drive',
     },
     {
-      title: '容量 (GB)',
+      title: '总大小 (GB)',
       dataIndex: 'cap',
       key: 'cap',
     },
     {
-      title: '类型',
-      dataIndex: 'type',
-      key: 'type',
-      sorter: true,
+      title: '备份点',
+      dataIndex: 'point',
+      key: 'point',
     },
     {
-      title: '副本策略',
-      dataIndex: 'tack',
-      key: 'tack',
+      title: '可见范围',
+      dataIndex: 'area',
+      key: 'area',
     },
     {
       title: '所属项目',
@@ -181,18 +187,18 @@ const Backup: React.FC<{}> = (props) => {
       key: 'project',
     },
     {
+      title: '备份位置',
+      dataIndex: 'backon',
+      key: 'backon',
+    },
+    {
       title: '备份于',
       dataIndex: 'backup',
       key: 'backup',
     },
-    {
-      title: '创建于',
-      dataIndex: 'createby',
-      key: 'createby',
-    },
   ];
 
-  //更多操作
+  // 更多操作
   const menu = (
     <Menu onClick={handleMenuClick} className="dark_drop">
       <Menu.Item key="1" icon={<TagsOutlined />}>

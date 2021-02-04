@@ -45,30 +45,54 @@ const RabbitMq: React.FC<{}> = (props) => {
   const [data, setData] = useState([
     {
       id: 'arch201310x64a',
-      name: '我的密钥1',
-      way: 'ssh-dss',
-      project: '项目1',
+      name: '集群1',
+      appname: '我的应用1',
+      appversion: '1.0.0',
+      state: 'usable',
+      num: 10,
+      net: '',
+      price_way: '',
+      message: '',
+      backon: '',
       createTime: '2021-01-21 13:10:10',
     },
     {
       id: 'arch201310x64b',
-      name: '我的密钥2',
-      way: 'ssh-rsa',
-      project: '项目1',
+      name: '集群1',
+      appname: '我的应用1',
+      appversion: '1.0.0',
+      state: 'unusable',
+      num: 10,
+      net: '',
+      price_way: '',
+      message: '',
+      backon: '',
       createTime: '2021-01-21 13:10:10',
     },
     {
       id: 'arch201310x64c',
-      name: '我的密钥3',
-      way: 'ssh-rsa',
-      project: '项目2',
+      name: '集群3',
+      appname: '我的应用2',
+      appversion: '1.0.0',
+      state: 'usable',
+      num: 10,
+      net: '',
+      price_way: '',
+      message: '',
+      backon: '',
       createTime: '2021-01-21 13:10:10',
     },
     {
       id: 'arch201310x64d',
-      name: '我的密钥4',
-      way: 'ssh-dss',
-      project: '项目2',
+      name: '集群1',
+      appname: '我的应用1',
+      appversion: '1.0.0',
+      state: 'usable',
+      num: 10,
+      net: '',
+      price_way: '',
+      message: '',
+      backon: '',
       createTime: '2021-01-21 13:10:10',
     },
   ]);
@@ -118,38 +142,76 @@ const RabbitMq: React.FC<{}> = (props) => {
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id.length - b.id.length,
+      render: (text, record) => {
+        return (
+          <Link to={`/storage/vnas/rootgroup/${text}`} className="span_line cursor_p color_blue">
+            {text}
+          </Link>
+        );
+      },
     },
     {
-      title: '名称',
+      title: '集群名称',
       dataIndex: 'name',
       key: 'name',
       sorter: (a, b) => a.name.length - b.name.length,
     },
     {
-      title: '加密方法',
-      dataIndex: 'way',
-      key: 'way',
+      title: '应用名称',
+      dataIndex: 'appname',
+      key: 'appname',
+    },
+    {
+      title: '应用版本',
+      dataIndex: 'appversion',
+      key: 'appversion',
+    },
+
+    {
+      title: '状态',
+      dataIndex: 'state',
+      key: 'state',
       filters: [
-        { text: 'ssh-rsa', value: 'ssh-rsa' },
-        { text: 'ssh-dss', value: 'ssh-dss' },
-        { text: 'ecdsa-sha2-nispt521', value: 'ecdsa-sha2-nispt521' },
-        { text: 'ssh-ed25519', value: 'ssh-ed25519' },
+        { text: '可用', value: 'usable' },
+        { text: '使用中', value: 'using' },
+        { text: '已暂停', value: 'stop' },
+        { text: '已删除', value: 'delete' },
       ],
-      onFilter: (value, record) => record.way.indexOf(value) === 0,
+      onFilter: (value, record) => record.state.indexOf(value) === 0,
     },
     {
-      title: '所属项目',
-      dataIndex: 'project',
-      key: 'project',
+      title: '节点数量',
+      dataIndex: 'num',
+      key: 'num',
     },
     {
-      title: '创建时间',
+      title: '网络',
+      dataIndex: 'net',
+      key: 'net',
+    },
+    {
+      title: '计费方式',
+      dataIndex: 'price_way',
+      key: 'price_way',
+    },
+    {
+      title: '通知策略',
+      dataIndex: 'message',
+      key: 'message',
+    },
+    {
+      title: '备份于',
+      dataIndex: 'backon',
+      key: 'backon',
+    },
+    {
+      title: '创建于',
       dataIndex: 'createTime',
       key: 'createTime',
     },
   ];
 
-  //更多操作
+  // 更多操作
   const menu = (
     <Menu onClick={handleMenuClick} className="dark_drop">
       <Menu.Item key="1" disabled icon={<CaretRightOutlined />}>

@@ -30,71 +30,55 @@ import {
 } from '@ant-design/icons';
 import NotificTips from '@/components/NotificList';
 import CreateResource from '@/pages/components/CreateResource/index';
-import RootGroups from './components/RootGroups/index';
-import VnasTable from './components/VnasTable/index';
-import { KeepAlive } from 'react-activation';
 
-const { TabPane } = Tabs;
 const { Search } = Input;
 
 // const operations = <Button>Extra Action</Button>;
-const Vnas: React.FC<{}> = (props) => {
-  const operations = {
-    left: <div style={{ width: '20px' }} />,
-    // right: <Button>Right Extra Action</Button>,
-  };
-  // tab
-  const [currentTabs, setCurrentTabs] = useState<string>('1');
-  // view
-  const [currentView, setCurrentView] = useState<string>('1');
+const VnasTable: React.FC<{}> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState([
     {
-      id: 1,
-      name: '企业级分布式 SAN 1',
+      id: 's2g-87jrjjby',
+      name: '文件存储 vNAS1',
       state: 'usable',
-      drive: 'D',
-      cap: '10',
       type: 'type1',
-      tack: '副本策略1',
+      config: '',
+      net: '',
+      ip: '',
       project: '所属项目',
-      backup: '备份于1aaa',
       createby: '2010-10-10-10',
     },
     {
-      id: 2,
-      name: '企业级分布式 SAN 2',
+      id: 's2g-87jrjjby2',
+      name: '文件存储 vNAS2',
       state: 'stop',
-      drive: 'D',
-      cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      type: 'type1',
+      config: '',
+      net: '',
+      ip: '',
       project: '所属项目',
-      backup: '备份于1aaa',
       createby: '2010-10-10-10',
     },
     {
-      id: 3,
-      name: '企业级分布式 SAN 2',
+      id: 's2g-87jrjjby3',
+      name: '文件存储 vNAS3',
       state: 'stop',
-      drive: 'D',
-      cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      type: 'type1',
+      config: '',
+      net: '',
+      ip: '',
       project: '所属项目',
-      backup: '备份于1aaa',
       createby: '2010-10-10-10',
     },
     {
-      id: 4,
-      name: '企业级分布式 SAN 2',
+      id: 's2g-87jrjjby4',
+      name: '文件存储 vNAS4',
       state: 'stop',
-      drive: 'D',
-      cap: '12',
-      type: 'type3',
-      tack: '副本策略1',
+      type: 'type1',
+      config: '',
+      net: '',
+      ip: '',
       project: '所属项目',
-      backup: '备份于1aaa',
       createby: '2010-10-10-10',
     },
   ]);
@@ -144,6 +128,13 @@ const Vnas: React.FC<{}> = (props) => {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      render: (text, record) => {
+        return (
+          <Link to={`/storage/vnas/rootgroup/${text}`} className="span_line cursor_p color_blue">
+            {text}
+          </Link>
+        );
+      },
     },
     {
       title: '名称',
@@ -196,7 +187,7 @@ const Vnas: React.FC<{}> = (props) => {
     },
   ];
 
-  //更多操作
+  // 更多操作
   const menu = (
     <Menu onClick={handleMenuClick} className="dark_drop">
       <Menu.Item key="1" icon={<CaretRightOutlined />}>
@@ -222,74 +213,71 @@ const Vnas: React.FC<{}> = (props) => {
       </Menu.Item>
     </Menu>
   );
-  const menu1 = (
-    <Menu onClick={handleMenuClick} className="dark_drop">
-      <Menu.Item key="1" icon={<EditOutlined />}>
-        修改
-      </Menu.Item>
-      <Menu.Item key="2" icon={<TagsOutlined />}>
-        绑定账户
-      </Menu.Item>
-      <Menu.Item key="3" icon={<ImportOutlined />}>
-        添加到项目
-      </Menu.Item>
-      <Menu.Item key="4" icon={<RotateLeftOutlined />}>
-        从项目中移除
-      </Menu.Item>
-      <Menu.Item key="5" icon={<DeleteOutlined />}>
-        删除
-      </Menu.Item>
-    </Menu>
-  );
+
   return (
-    <KeepAlive name="/storage/vnas" path="文件存储vNAS" saveScrollPosition="screen">
-      <PageContainer>
-        <CreateResource
-          visible={showBuid}
-          onClose={() => {
-            setShowBuild(false);
-          }}
-        />
-        <div className="bg_div_white font_12">
-          <NotificTips>
-            <div>
-              <b>NAS </b>是支持基于 NFS 和 Samba(CIFS) 协议的网络共享存储服务。你可以将硬盘挂载到
-              NAS 服务器上，让多个客户端通过网络连接进行共享，同时支持可访问服务的账号的控制管理。
-            </div>
-          </NotificTips>
+    <div className="bg_div_white font_12">
+      <CreateResource
+        visible={showBuid}
+        onClose={() => {
+          setShowBuild(false);
+        }}
+      />
+      <div className={styles.table_fun}>
+        <div className="flex flex_1">
+          <div
+            className={`${styles.mybtn} ${styles.padd_7_16} ${styles.height_36} ${
+              loading ? 'mydisabled' : ''
+            }`}
+            onClick={toRefush}
+          >
+            <RedoOutlined />
+          </div>
+          <Button
+            type="primary"
+            className={styles.height_36}
+            style={{ marginRight: 4 }}
+            onClick={() => {
+              setShowBuild(true);
+            }}
+          >
+            <PlusOutlined />
+            创建
+          </Button>
+
           <div>
-            <Tabs
-              tabBarGutter={5}
-              tabBarExtraContent={operations}
-              defaultActiveKey="1"
-              onChange={(key) => {
-                setCurrentTabs(key);
-              }}
-              type="card"
-              size="small"
-              className="notification_tab"
-            >
-              <TabPane tab="文件存储 vNAS" key="1" />
-              <TabPane tab="权限组" key="2" />
-              <TabPane tab="账户" key="3" />
-            </Tabs>
+            <Dropdown overlay={menu} trigger={['click']}>
+              <Button className={`${styles.mybtn} ${styles.height_36}`}>
+                <AppstoreFilled />
+                更多操作 <DownOutlined />
+              </Button>
+            </Dropdown>
           </div>
-          <div className={styles.table_form}>
-            {currentTabs === '2' && (
-              <div className="pane_intro">
-                为了方便用户对账户 (Account) 的管理，可以创建 NFS 和 Samba
-                类型的账户组，并将同类型的 Account
-                绑定到账户组中。账户组可以和共享目标直接绑定，账户组之间不可相互绑定。
-              </div>
-            )}
-            <div>
-              {currentTabs === '1' && <VnasTable />}
-              {currentTabs === '2' && <RootGroups />}
-            </div>
-          </div>
+
+          <Search placeholder="" onSearch={onSearch} style={{ width: 200 }} />
         </div>
-      </PageContainer>
-    </KeepAlive>
+        <div className="flex">
+          <div className={styles.pagination}>合计:0</div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <Spin tip="数据加载中..." spinning={loading}>
+            <Table
+              columns={columns}
+              rowSelection={rowSelection}
+              rowKey={(record) => record.id}
+              dataSource={data}
+              pagination={pagination}
+              loading={loading}
+              onChange={handleTableChange}
+            />
+          </Spin>
+          <p className="tips">
+            * 提示：可通过在各个资源上点击「右键」来进行常用操作，以及「双击」来修改基本属性。
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
-export default connect(() => ({}))(Vnas);
+export default connect(() => ({}))(VnasTable);
